@@ -4,6 +4,10 @@ Generate SVG + PNG figures referenced from README.md.
 
 Run from repo root:
   python scripts/gen_figures.py
+
+Do not add footnotes, captions, or explanatory paragraphs inside the figure (no ax.text
+below the axes, no long titles). Keep plots to axes, ticks, bars/lines, and minimal labels.
+Longer context stays in README.md as italic text under each image.
 """
 
 from __future__ import annotations
