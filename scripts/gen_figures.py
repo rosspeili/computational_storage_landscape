@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+"""
+Generate SVG + PNG figures for Computational-Storage-AI-Briefing.md.
+
+Run from repo root:
+  python scripts/gen_figures.py
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+
+# Pastel palette aligned with briefing badges / skillware-style tones
+COLORS = {
+    "bics_8": "#bae6fd",
+    "bics_10": "#bbf7d0",
+    "tiny": "#fdf2f8",
+    "llama": "#ddd6fe",
+    "phi": "#fecaca",
+    "text": "#1e293b",
+    "muted": "#64748b",
+    "grid": "#e2e8f0",
+}
+
+
+def _setup_style() -> None:
+    plt.rcParams.update(
+        {
+            "figure.facecolor": "white",
+            "axes.facecolor": "white",
+            "axes.edgecolor": COLORS["grid"],
+            "axes.labelcolor": COLORS["text"],
+            "text.color": COLORS["text"],
+            "xtick.color": COLORS["text"],
+            "ytick.color": COLORS["text"],
+            "font.size": 10,
+            "axes.titlesize": 11,
+            "axes.titleweight": "600",
+        }
+    )
+
+
+def figure_bics_layers(out_dir: Path) -> None:
+    """BiCS 8 vs BiCS 10 public layer counts (BiCS 9 developing — not plotted numerically)."""
+    labels = ["BiCS 8\n(~218 layers)", "BiCS 10\n(332 layers)"]
+    values = [218, 332]
+    colors = [COLORS["bics_8"], COLORS["bics_10"]]
+
+    fig, ax = plt.subplots(figsize=(7.2, 3.4), dpi=150)
+    y = range(len(labels))
+    bars = ax.barh(y, values, height=0.55, color=colors, edgecolor="white", linewidth=1.2)
+    ax.set_yticks(list(y))
+    ax.set_yticklabels(labels)
+    ax.set_xlabel("Vertical layer count (public roadmap figures)")
+    ax.set_title("BiCS FLASH: published layer targets (8th vs 10th generation)")
+    ax.set_xlim(0, max(values) * 1.12)
+    for bar, val in zip(bars, values):
+        ax.text(
+            val + 8,
+            bar.get_y() + bar.get_height() / 2,
+            f"{val}",
+            va="center",
+            ha="left",
+            fontsize=10,
+            color=COLORS["text"],
+        )
+    ax.axvline(218, color=COLORS["muted"], linestyle="--", linewidth=0.8, alpha=0.5, zorder=0)
+    ax.text(
+        0.02,
+        -0.32,
+        "BiCS 9 is in development; the briefing does not cite a public layer count, so it is omitted here.",
+        transform=ax.transAxes,
+        fontsize=8,
+        color=COLORS["muted"],
+        va="top",
+    )
+    fig.tight_layout()
+    _save_both(fig, out_dir / "bics-layers")
+    plt.close(fig)
+
+
+def figure_model_footprint(out_dir: Path) -> None:
+    """Effective model size (MB) — representative midpoints from the briefing table."""
+    models = [
+        "TinyML / MobileNet\n(<100M params, 8/4-bit)",
+        "Llama-3.2-1B\n(2-bit / ternary, ~200–300 MB)",
+        "Phi-3.5-mini\n(1.58-bit BitNet, ~600 MB)",
+    ]
+    # Midpoint for Llama range; upper bound for TinyML; cited ~600 for Phi
+    sizes_mb = [50, 250, 600]
+    colors = [COLORS["tiny"], COLORS["llama"], COLORS["phi"]]
+
+    fig, ax = plt.subplots(figsize=(7.2, 3.8), dpi=150)
+    x = range(len(models))
+    bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62)
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(models, fontsize=8.5)
+    ax.set_ylabel("Representative effective size (MB)")
+    ax.set_title("Quantized model footprint vs controller-scale DRAM pressure")
+    ax.set_ylim(0, max(sizes_mb) * 1.15)
+    for bar, val in zip(bars, sizes_mb):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 12,
+            f"{val}",
+            ha="center",
+            va="bottom",
+            fontsize=9,
+            color=COLORS["text"],
+        )
+    ax.text(
+        0.02,
+        -0.28,
+        "Llama size uses the midpoint of the ~200–300 MB range from the briefing; TinyML uses <50 MB cap.",
+        transform=ax.transAxes,
+        fontsize=8,
+        color=COLORS["muted"],
+        va="top",
+    )
+    fig.tight_layout()
+    _save_both(fig, out_dir / "model-footprint-mb")
+    plt.close(fig)
+
+
+def figure_memory_ladder(out_dir: Path) -> None:
+    """Log-scale comparison: on-chip SRAM vs controller DRAM envelope (orders of magnitude)."""
+    labels = ["On-chip SRAM\n(per core, TCM)", "System DRAM\n(controller envelope)"]
+    # Representative points: <1 MB vs 1–4 GB → use 0.5 MB and 2 GB midpoint for visualization
+    bytes_vals = [0.5 * 1024**2, 2 * 1024**3]
+    colors = ["#fde68a", "#a5b4fc"]
+
+    fig, ax = plt.subplots(figsize=(6.8, 3.6), dpi=150)
+    x = range(len(labels))
+    ax.bar(x, bytes_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(labels)
+    ax.set_ylabel("Bytes (log scale)")
+    ax.set_yscale("log")
+    ax.set_title("Memory hierarchy gap on SSD controllers (illustrative)")
+    ymin = 10**5
+    ymax = 5 * 10**10
+    ax.set_ylim(ymin, ymax)
+    fmt_labels = ["< 1 MB class", "~2 GB (mid of 1–4 GB range)"]
+    for i, (v, fl) in enumerate(zip(bytes_vals, fmt_labels)):
+        ax.text(i, v * 1.35, fl, ha="center", va="bottom", fontsize=8.5, color=COLORS["text"])
+    ax.text(
+        0.02,
+        -0.24,
+        "Illustrative only: shows why weight tiles exceed SRAM and press DRAM — drives quantization.",
+        transform=ax.transAxes,
+        fontsize=8,
+        color=COLORS["muted"],
+        va="top",
+    )
+    fig.tight_layout()
+    _save_both(fig, out_dir / "memory-hierarchy-log")
+    plt.close(fig)
+
+
+def _save_both(fig: plt.Figure, base_path: Path) -> None:
+    base_path.parent.mkdir(parents=True, exist_ok=True)
+    png = base_path.with_suffix(".png")
+    svg = base_path.with_suffix(".svg")
+    fig.savefig(png, dpi=150, bbox_inches="tight", facecolor="white")
+    fig.savefig(svg, bbox_inches="tight", facecolor="white")
+    print(f"Wrote {png}")
+    print(f"Wrote {svg}")
+
+
+def main() -> int:
+    root = Path(__file__).resolve().parent.parent
+    out_dir = root / "figures"
+    _setup_style()
+    figure_bics_layers(out_dir)
+    figure_model_footprint(out_dir)
+    figure_memory_ladder(out_dir)
+    print("Done.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
