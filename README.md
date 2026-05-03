@@ -21,11 +21,11 @@ Strategic analysis with **KIOXIA** as the primary lens, BiCS FLASH and XL-FLASH 
 
 </div>
 
-**Diagrams.** [Mermaid](https://mermaid.js.org/) blocks render on GitHub, GitLab, and many static-site generators. Static charts are generated as matching [PNG](figures/) and [SVG](figures/) files via [`scripts/gen_figures.py`](scripts/gen_figures.py) (`pip install -r requirements-figures.txt`).
+A single reference for technical and strategy audiences on embedding [Small Language Models (TinyLMs)](https://arxiv.org/html/2603.23668v1) in solid-state drive controllers, the role of [extreme quantization](https://arxiv.org/html/2504.12285v2), and the shift toward [intelligent, queryable storage](https://www.min.io/learn/enterprise) in enterprise environments. For industry context on how flash tiers interact with GPU memory during inference scaling, see [SSD infrastructure and AI inference](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/). [KIOXIA perspectives on AI and storage](https://americas.kioxia.com/en-us/insights.html) sit alongside the numbered sources at the end of this file.
 
 ---
 
-This repository’s main artifact is the analysis below: a single reference for technical and strategy audiences on embedding [Small Language Models (TinyLMs)](https://arxiv.org/html/2603.23668v1) in solid-state drive controllers, the role of [extreme quantization](https://arxiv.org/html/2504.12285v2), and the shift toward [intelligent, queryable storage](https://www.min.io/learn/enterprise) in enterprise environments. For industry context on how flash tiers interact with GPU memory during inference scaling, see [SSD infrastructure and AI inference](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/). [KIOXIA perspectives on AI and storage](https://americas.kioxia.com/en-us/insights.html) sit alongside the numbered sources at the end of this file.
+**Diagrams.** [Mermaid](https://mermaid.js.org/) blocks render on GitHub, GitLab, and many static-site generators. Static charts are generated as matching [PNG](figures/) and [SVG](figures/) files via [`scripts/gen_figures.py`](scripts/gen_figures.py) (`pip install -r requirements-figures.txt`).
 
 ---
 
