@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.env
+.venv/
+venv/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Do not track source PDFs; README is the canonical text
+*.pdf
+
+# Local git mailmap only (keep on disk; do not publish to GitHub)
+.mailmap
