@@ -88,20 +88,17 @@ def figure_bics_layers(out_dir: Path) -> None:
 
 def figure_model_footprint(out_dir: Path) -> None:
     """Compressed weight footprint (MB) vs typical controller DRAM pool (1 to 4 GB band)."""
-    models = [
-        "TinyML / MobileNet\n(<100M params, 8/4-bit)",
-        "Llama-3.2-1B\n(2-bit / ternary, ~200 to 300 MB)",
-        "Phi-3.5-mini\n(1.58-bit BitNet, ~600 MB)",
-    ]
+    # Short labels only; specs and prose live in README.md (same pattern as other figures here).
+    models = ["TinyML / MobileNet", "Llama-3.2-1B", "Phi-3.5-mini"]
     # Midpoint for Llama range; cap for TinyML; cited ~600 for Phi
     sizes_mb = [50, 250, 600]
     colors = [COLORS["tiny"], COLORS["llama"], COLORS["phi"]]
     dram_min_mb = 1024  # 1 GB
     dram_max_mb = 4096  # 4 GB
 
-    fig, ax = plt.subplots(figsize=(14.0, 7.5), dpi=150)
+    # Taller, less ultra-wide than before so README scaling yields readable height (like bics / memory).
+    fig, ax = plt.subplots(figsize=(10.0, 6.0), dpi=150)
     x = list(range(len(models)))
-    # Log scale so bars and multi-GB DRAM envelope share one readable chart
     ax.set_yscale("log")
     ax.set_ylim(40, 6000)
     ax.axhspan(
@@ -110,7 +107,7 @@ def figure_model_footprint(out_dir: Path) -> None:
         color="#bbf7d0",
         alpha=0.35,
         zorder=0,
-        label="Typical DRAM pool (1 to 4 GB, see README table)",
+        label="DRAM pool (1–4 GB)",
     )
     ax.axhline(
         100,
@@ -118,13 +115,13 @@ def figure_model_footprint(out_dir: Path) -> None:
         linestyle="--",
         linewidth=0.9,
         alpha=0.7,
-        label="~100 MB buffer reference (TinyLM subsection)",
+        label="~100 MB",
     )
     bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
     ax.set_xticks(x)
-    ax.set_xticklabels(models, fontsize=11)
-    ax.set_ylabel("Size (MB), log scale")
-    ax.set_title("Quantized weight footprint (MB) vs controller DRAM envelope")
+    ax.set_xticklabels(models, fontsize=12)
+    ax.set_ylabel("MB (log)")
+    ax.set_title("Weight footprint vs DRAM envelope")
     for bar, val in zip(bars, sizes_mb):
         ax.text(
             bar.get_x() + bar.get_width() / 2,
@@ -132,25 +129,13 @@ def figure_model_footprint(out_dir: Path) -> None:
             f"{val}",
             ha="center",
             va="bottom",
-            fontsize=11,
+            fontsize=12,
             color=COLORS["text"],
             zorder=3,
         )
-    ax.legend(loc="upper left", fontsize=10, framealpha=0.92, borderaxespad=0.5)
-    ax.text(
-        0.02,
-        -0.38,
-        "Each bar is one model's compressed weights. The green band is the typical total controller "
-        "DRAM range (1 to 4 GB) from the README table: compare bar height to that pool (firmware and "
-        "I/O also use DRAM). Log scale fits MB-scale weights and GB-scale DRAM on one axis. No single "
-        "best footprint, see latency and reasoning tradeoffs in the README table. Llama uses the "
-        "~200 to 300 MB midpoint.",
-        transform=ax.transAxes,
-        fontsize=9,
-        color=COLORS["muted"],
-        va="top",
-    )
-    fig.subplots_adjust(bottom=0.32)
+    ax.legend(loc="upper left", fontsize=11, framealpha=0.92, borderaxespad=0.5)
+    ax.tick_params(axis="both", labelsize=11)
+    fig.tight_layout()
     _save_both(fig, out_dir / "model-footprint-mb")
     plt.close(fig)
 
