@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate SVG + PNG figures for Computational-Storage-AI-Briefing.md.
+Generate SVG + PNG figures referenced from README.md.
 
 Run from repo root:
   python scripts/gen_figures.py
