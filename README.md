@@ -1,12 +1,12 @@
 <div align="center">
 
-# Strategic Analysis of Embedded Small Language Model Inference on Solid-State Drive Controllers
+# Computational Storage Landscape: KIOXIA, NAND, and TinyLM on SSD Controllers
 
-A structured briefing on computational storage, NAND roadmap alignment, and TinyLM feasibility on SSD controllers.
+Strategic analysis with **KIOXIA** as the primary lens—BiCS FLASH and XL-FLASH roadmaps, AiSAQ, Software-Enabled Flash (SEF), and positioning versus computational-storage competitors—plus market and technical context for embedding small language models in SSD controllers.
 
 <br/>
 
-<img src="https://img.shields.io/badge/Briefing-Computational%20Storage-fdf2f8?style=flat-square" alt="Briefing: Computational Storage" />
+<img src="https://img.shields.io/badge/Landscape-KIOXIA%20%C3%97%20storage-fdf2f8?style=flat-square" alt="Landscape: KIOXIA x storage" />
 <img src="https://img.shields.io/badge/Focus-SSD%20%C3%97%20AI-e0f2fe?style=flat-square" alt="Focus: SSD x AI" />
 <img src="https://img.shields.io/badge/Scope-KIOXIA%20%26%20market-ddf4e4?style=flat-square" alt="Scope: KIOXIA and market" />
 <img src="https://img.shields.io/badge/Format-Strategic%20analysis-fef9c3?style=flat-square" alt="Format: Strategic analysis" />
@@ -25,7 +25,7 @@ A structured briefing on computational storage, NAND roadmap alignment, and Tiny
 
 ---
 
-This document reformats the *Computational Storage AI Briefing* into a single reference suitable for technical and strategy audiences. It preserves the original analysis on embedding [Small Language Models (TinyLMs)](https://arxiv.org/html/2603.23668v1) in solid-state drive controllers, the role of [extreme quantization](https://arxiv.org/html/2504.12285v2), and the shift toward [intelligent, queryable storage](https://www.min.io/learn/enterprise) in enterprise environments. For complementary industry context on how flash tiers interact with GPU memory during inference scaling, see coverage of [SSD infrastructure and AI inference](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/). Broader [KIOXIA perspectives on AI and storage](https://americas.kioxia.com/en-us/insights.html) are summarized alongside primary citations below.
+This repository’s main artifact is the analysis below: a single reference for technical and strategy audiences on embedding [Small Language Models (TinyLMs)](https://arxiv.org/html/2603.23668v1) in solid-state drive controllers, the role of [extreme quantization](https://arxiv.org/html/2504.12285v2), and the shift toward [intelligent, queryable storage](https://www.min.io/learn/enterprise) in enterprise environments. For industry context on how flash tiers interact with GPU memory during inference scaling, see [SSD infrastructure and AI inference](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/). [KIOXIA perspectives on AI and storage](https://americas.kioxia.com/en-us/insights.html) sit alongside the numbered sources at the end of this file.
 
 ---
 
@@ -59,7 +59,7 @@ The roadmap for 2026–2027 targets the mass production of 10th-generation BiCS 
 
 ![BiCS FLASH public layer targets (8th vs 10th generation)](figures/bics-layers.png)
 
-*Numeric roadmap chart (BiCS 9 is developing without a public layer count in the briefing, so it is omitted). Vector: [bics-layers.svg](figures/bics-layers.svg).*
+*Numeric roadmap chart (BiCS 9 is developing without a public layer count in the source roadmap figures above, so it is omitted). Vector: [bics-layers.svg](figures/bics-layers.svg).*
 
 Controller and firmware intelligence trends intersect with patent analytics and competitive teardowns ([SSD controller technology landscape](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/)).
 
@@ -240,7 +240,7 @@ The “AI PC” era is driving the integration of AI functions directly into sta
 
 ## KIOXIA’s positioning and gaps
 
-KIOXIA is currently in a state of rapid growth driven by the AI supercycle; market commentary has highlighted strengthening demand for AI-related storage ([Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)). However, the company faces critical strategic gaps in the hardware-software integration required for on-device AI. Group-level narratives on value creation are documented in the [Integrated Report 2025 materials](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf), while [corporate profile PDFs](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf) summarize structural facts used throughout this briefing.
+KIOXIA is currently in a state of rapid growth driven by the AI supercycle; market commentary has highlighted strengthening demand for AI-related storage ([Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)). However, the company faces critical strategic gaps in the hardware-software integration required for on-device AI. Group-level narratives on value creation are documented in the [Integrated Report 2025 materials](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf), while the published [corporate profile](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf) summarizes structural facts referenced throughout this document.
 
 ### Strengths and vulnerabilities
 
@@ -267,7 +267,7 @@ KIOXIA is currently in a state of rapid growth driven by the AI supercycle; mark
 
 ## Key decision-makers in KIOXIA R&D
 
-Leadership in technology development is concentrated in the Frontier Technology R&D Institute and the SSD Division. Organizational context appears in [group company listings](https://www.kioxia.com/en-jp/about/group.html) and corporate disclosures ([corporate profile PDF](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf)).
+Leadership in technology development is concentrated in the Frontier Technology R&D Institute and the SSD Division. Organizational context appears in [group company listings](https://www.kioxia.com/en-jp/about/group.html) and the published [corporate profile](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf).
 
 | Name | Role | Location | Key area of influence |
 | --- | --- | --- | --- |
@@ -286,7 +286,7 @@ Leadership in technology development is concentrated in the Frontier Technology 
 KIOXIA Europe GmbH is headquartered in Düsseldorf, Germany, focusing primarily on sales and marketing ([regional offices overview](https://www.kioxia.com/en-jp/business/buy/global-sales.html)).
 
 - **Research presence:** KIOXIA Israel Ltd. serves as a key overseas R&D site for software and controller techniques.
-- **Regional collaboration potential:** No dedicated KIOXIA R&D center exists in Greece or Eastern Europe. However, the region is seeing a surge in AI research. The University of Nicosia (UNIC Athens) has partnered with Purdue University for a “living lab” in the Ellinikon smart city project, focusing on AI and data science ([Kathimerini coverage](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Greece’s National Recovery and Resilience Plan “Greece 2.0” is establishing innovation centers for digital skills and AI, presenting opportunities for academic-industrial collaboration ([Eurydice network news](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)).
+- **Regional collaboration potential:** No dedicated KIOXIA R&D center exists in Greece or Eastern Europe. The region nonetheless offers dense applied-AI and infrastructure research capacity. National-scale hubs include the [Centre for Research and Technology Hellas (CERTH)](https://www.certh.gr/en/), the [National Centre for Scientific Research “Demokritos”](https://www.demokritos.gr/?lang=en), and the [ATHENA Research Center](https://www.athenarc.gr/en/)—all plausible partners for data systems, edge AI, and industry-facing pilots tied to storage-adjacent workloads. Separately, the University of Nicosia (UNIC Athens) has partnered with Purdue University for a “living lab” in the Ellinikon smart city project, focusing on AI and data science ([Kathimerini coverage](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Greece’s National Recovery and Resilience Plan “Greece 2.0” is establishing innovation centers for digital skills and AI, presenting opportunities for academic-industrial collaboration ([Eurydice network news](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)).
 
 ---
 
@@ -308,7 +308,7 @@ The demand for massive memory expansion is currently unmet by DRAM alone. KIOXIA
 
 ### 4. Establishing a Mediterranean R&D hub for edge AI
 
-To tap into the European AI research ecosystem and address the lack of Eastern European presence, KIOXIA should consider a collaboration or satellite office in Athens, Greece. The Ellinikon smart city and related university initiatives are designed to bridge US and European innovation ([UNIC Athens bridge narrative](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue partnership](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Partnering on health and robotics pilots would allow KIOXIA to pilot intelligent storage solutions in a living-lab environment while accessing EU recovery funding channels referenced in [European education policy updates](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities).
+To tap into the European AI research ecosystem and address the lack of Eastern European presence, KIOXIA should consider a collaboration or satellite office in Athens, Greece, adjacent to national labs and centers such as CERTH, Demokritos, and ATHENA as well as university-led programs. The Ellinikon smart city and related university initiatives are designed to bridge US and European innovation ([UNIC Athens bridge narrative](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue partnership](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Partnering on health and robotics pilots would allow KIOXIA to pilot intelligent storage solutions in a living-lab environment while accessing EU recovery funding channels referenced in [European education policy updates](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities).
 
 ---
 
@@ -320,7 +320,7 @@ KIOXIA is currently at an inflection point. The company’s mastery of NAND phys
 
 ## Sources
 
-The following list preserves the briefing’s reference set. Every item appears inline above as a hyperlink at least once.
+The numbered list below is the consolidated citation set for this document. Each entry appears inline above as a hyperlink at least once.
 
 1. [A New Era in AI Storage Pioneered by the Coexistence of HBM and SSDs – Unpacking Kioxia Strategy](https://www.kioxia.com/en-jp/insights/hbm-ssd-202603.html)  
 2. [SSD infrastructure becomes critical as AI inference scales – SiliconANGLE](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/)  
@@ -348,8 +348,8 @@ The following list preserves the briefing’s reference set. Every item appears 
 24. [SSD controller technology landscape 2026 – PatSnap Eureka](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/)  
 25. [US8780634B2 – CAM NAND with OR function and full chip search capability – Google Patents](https://patents.google.com/patent/US8780634B2/en)  
 26. [Kioxia and Sandisk extend Yokkaichi joint venture agreement through 2034](https://www.kioxia.com/en-jp/about/news/2026/20260130-1.html)  
-27. [Integrated Report 2025 (full PDF)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-all-view-en.pdf)  
-28. [Integrated Report 2025 – Management and capital (PDF)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-04-en.pdf)  
+27. [Integrated Report 2025 (full report, KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-all-view-en.pdf)  
+28. [Integrated Report 2025 – Management and capital (KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-04-en.pdf)  
 29. [Computational storage market report – MarketsandMarkets listing](https://www.marketsandmarkets.com/Market-Reports/computational-storage-market-71343109.html)  
 30. [Computational storage market worth $4.30 billion by 2032 – MarketsandMarkets via PR Newswire](https://www.prnewswire.com/news-releases/computational-storage-market-worth-4-30-billion-by-2032---exclusive-report-by-marketsandmarkets-302689302.html)  
 31. [ScaleFlux reveals the revolutionary CSD5000 for the AI era](https://scaleflux.com/in-the-media/scaleflux-reveals-the-revolutionary-csd5000-for-the-ai-era/)  
@@ -370,7 +370,7 @@ The following list preserves the briefing’s reference set. Every item appears 
 46. [Top enterprise AI use cases – NiCE](https://www.nice.com/enterprise-ai-platform/enterprise-ai-use-cases)  
 47. [Five enterprise use cases where AI privacy concerns must be addressed – BlackFog](https://www.blackfog.com/5-enterprise-use-cases-ai-privacy-concerns/)  
 48. [KIOXIA insights – United States](https://americas.kioxia.com/en-us/insights.html)  
-49. [Integrated Report 2025 – Kioxia Group value creation initiatives (PDF)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf)  
+49. [Integrated Report 2025 – Kioxia Group value creation initiatives](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf)  
 50. [Storage as a Service (STaaS) market – Research and Markets listing](https://www.researchandmarkets.com/reports/6232382/storage-service-staas-market-strategic)  
 51. [Kioxia benefits from growing demand for AI storage – Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)  
 52. [Global sales offices – KIOXIA](https://www.kioxia.com/en-jp/business/buy/global-sales.html)  
@@ -378,7 +378,7 @@ The following list preserves the briefing’s reference set. Every item appears 
 54. [Samsung, SK Hynix, and Micron versus Kioxia in AI data centers – EEWORLD](https://en.eeworld.com.cn/news/manufacture/eic717137.html)  
 55. [AIC and ScaleFlux – ScaleFlux partners](https://scaleflux.com/partners/aic-and-scaleflux/)  
 56. [Group companies – KIOXIA](https://www.kioxia.com/en-jp/about/group.html)  
-57. [Corporate profile – KIOXIA Holdings (PDF)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf)  
+57. [Corporate profile – KIOXIA Holdings](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf)  
 58. [UNIC Athens positioned as bridge between Europe and the US – KNEWS](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s)  
 59. [Purdue partners with University of Nicosia–Athens – Purdue University newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)  
 60. [Greece: new innovation centres to boost digital skills and STEM education – Eurydice Network](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)  
@@ -386,6 +386,6 @@ The following list preserves the briefing’s reference set. Every item appears 
 
 ---
 
-This briefing is a **living landscape analysis**: it tracks a fast-moving intersection of storage, silicon, and AI, and is **not** presented as a finished product, vendor specification, or static snapshot. The authors maintain it as part of **active work** in computational storage and adjacent inference architectures. Expect updates as roadmaps, papers, and markets shift.
+This repository is a **living landscape analysis**: it tracks a fast-moving intersection of storage, silicon, and AI, and is **not** presented as a finished product, vendor specification, or static snapshot. The authors maintain it as part of **active work** in computational storage and adjacent inference architectures. Expect updates as roadmaps, papers, and markets shift.
 
 If you operate in this space, **contributions are welcome**: sharper citations, factual corrections, missing benchmarks or products, and pointers to primary sources all help keep the analysis honest and useful. Product and trademark names cited herein belong to their respective owners.
