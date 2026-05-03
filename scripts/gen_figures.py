@@ -49,17 +49,16 @@ def _setup_style() -> None:
 
 def figure_bics_layers(out_dir: Path) -> None:
     """BiCS 8 and BiCS 10 public layer counts (BiCS 9 developing, not plotted numerically)."""
-    labels = ["BiCS 8\n(~218 layers)", "BiCS 10\n(332 layers)"]
+    labels = ["BiCS 8", "BiCS 10"]
     values = [218, 332]
     colors = [COLORS["bics_8"], COLORS["bics_10"]]
 
-    fig, ax = plt.subplots(figsize=(11.0, 4.6), dpi=150)
+    fig, ax = plt.subplots(figsize=(10.0, 3.8), dpi=150)
     y = range(len(labels))
     bars = ax.barh(y, values, height=0.55, color=colors, edgecolor="white", linewidth=1.2)
     ax.set_yticks(list(y))
     ax.set_yticklabels(labels)
-    ax.set_xlabel("Vertical layer count (public roadmap figures)")
-    ax.set_title("BiCS FLASH: published vertical layer counts (8th and 10th generations)")
+    ax.set_xlabel("Layers")
     ax.set_xlim(0, max(values) * 1.12)
     for bar, val in zip(bars, values):
         ax.text(
@@ -72,15 +71,6 @@ def figure_bics_layers(out_dir: Path) -> None:
             color=COLORS["text"],
         )
     ax.axvline(218, color=COLORS["muted"], linestyle="--", linewidth=0.8, alpha=0.5, zorder=0)
-    ax.text(
-        0.02,
-        -0.32,
-        "BiCS 9 is in development; public layer count is not in the roadmap table above, so it is omitted here.",
-        transform=ax.transAxes,
-        fontsize=8,
-        color=COLORS["muted"],
-        va="top",
-    )
     fig.tight_layout()
     _save_both(fig, out_dir / "bics-layers")
     plt.close(fig)
@@ -96,32 +86,23 @@ def figure_model_footprint(out_dir: Path) -> None:
     dram_min_mb = 1024  # 1 GB
     dram_max_mb = 4096  # 4 GB
 
-    # Taller, less ultra-wide than before so README scaling yields readable height (like bics / memory).
-    fig, ax = plt.subplots(figsize=(10.0, 6.0), dpi=150)
+    fig, ax = plt.subplots(figsize=(9.0, 5.2), dpi=150)
     x = list(range(len(models)))
     ax.set_yscale("log")
     ax.set_ylim(40, 6000)
-    ax.axhspan(
-        dram_min_mb,
-        dram_max_mb,
-        color="#bbf7d0",
-        alpha=0.35,
-        zorder=0,
-        label="DRAM pool (1–4 GB)",
-    )
+    ax.axhspan(dram_min_mb, dram_max_mb, color="#bbf7d0", alpha=0.35, zorder=0)
     ax.axhline(
         100,
         color=COLORS["muted"],
         linestyle="--",
         linewidth=0.9,
         alpha=0.7,
-        label="~100 MB",
+        zorder=1,
     )
     bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
     ax.set_xticks(x)
-    ax.set_xticklabels(models, fontsize=12)
+    ax.set_xticklabels(models, fontsize=11)
     ax.set_ylabel("MB (log)")
-    ax.set_title("Weight footprint vs DRAM envelope")
     for bar, val in zip(bars, sizes_mb):
         ax.text(
             bar.get_x() + bar.get_width() / 2,
@@ -129,12 +110,11 @@ def figure_model_footprint(out_dir: Path) -> None:
             f"{val}",
             ha="center",
             va="bottom",
-            fontsize=12,
+            fontsize=11,
             color=COLORS["text"],
             zorder=3,
         )
-    ax.legend(loc="upper left", fontsize=11, framealpha=0.92, borderaxespad=0.5)
-    ax.tick_params(axis="both", labelsize=11)
+    ax.tick_params(axis="both", labelsize=10)
     fig.tight_layout()
     _save_both(fig, out_dir / "model-footprint-mb")
     plt.close(fig)
@@ -142,34 +122,21 @@ def figure_model_footprint(out_dir: Path) -> None:
 
 def figure_memory_ladder(out_dir: Path) -> None:
     """Log-scale comparison: on-chip SRAM vs controller DRAM envelope (orders of magnitude)."""
-    labels = ["On-chip SRAM\n(per core, TCM)", "System DRAM\n(controller envelope)"]
+    labels = ["SRAM", "DRAM"]
     # Representative points: <1 MB vs 1–4 GB → use 0.5 MB and 2 GB midpoint for visualization
     bytes_vals = [0.5 * 1024**2, 2 * 1024**3]
     colors = ["#fde68a", "#a5b4fc"]
 
-    fig, ax = plt.subplots(figsize=(11.0, 5.0), dpi=150)
+    fig, ax = plt.subplots(figsize=(8.0, 4.8), dpi=150)
     x = range(len(labels))
     ax.bar(x, bytes_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
     ax.set_xticks(list(x))
     ax.set_xticklabels(labels)
-    ax.set_ylabel("Bytes (log scale)")
+    ax.set_ylabel("Bytes (log)")
     ax.set_yscale("log")
-    ax.set_title("Memory hierarchy gap on SSD controllers (illustrative)")
     ymin = 10**5
     ymax = 5 * 10**10
     ax.set_ylim(ymin, ymax)
-    fmt_labels = ["< 1 MB class", "~2 GB (mid of 1 to 4 GB range)"]
-    for i, (v, fl) in enumerate(zip(bytes_vals, fmt_labels)):
-        ax.text(i, v * 1.35, fl, ha="center", va="bottom", fontsize=10, color=COLORS["text"])
-    ax.text(
-        0.02,
-        -0.24,
-        "Illustrative only: weight tiles exceed SRAM and stress DRAM headroom, which motivates quantization.",
-        transform=ax.transAxes,
-        fontsize=8,
-        color=COLORS["muted"],
-        va="top",
-    )
     fig.tight_layout()
     _save_both(fig, out_dir / "memory-hierarchy-log")
     plt.close(fig)

@@ -59,7 +59,7 @@ The roadmap for 2026 to 2027 targets the mass production of 10th-generation BiCS
 
 ![BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)](figures/bics-layers.png)
 
-*Numeric roadmap chart (BiCS 9 is developing without a public layer count in the source roadmap figures above, so it is omitted). Vector: [bics-layers.svg](figures/bics-layers.svg).*
+*Numeric roadmap chart: horizontal bars are public BiCS 8 and BiCS 10 vertical layer counts; the dashed vertical line marks the BiCS 8 figure. BiCS 9 is developing without a public layer count in the roadmap table above, so it is not plotted. Vector: [bics-layers.svg](figures/bics-layers.svg).*
 
 Controller and firmware intelligence trends intersect with patent analytics and competitive teardowns ([SSD controller technology landscape](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/)).
 
@@ -165,7 +165,7 @@ flowchart TB
 
 ![Memory hierarchy gap on SSD controllers, log scale (illustrative)](figures/memory-hierarchy-log.png)
 
-*Compares two capacities on one chart (on-chip SRAM versus a midpoint in the 1 to 4 GB controller DRAM envelope), log scale. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
+*Illustrative comparison on one log-scale chart: left bar is on-chip SRAM class (under about 1 MB per core), right bar is a ~2 GB midpoint within the 1 to 4 GB controller DRAM envelope (see the mermaid block above). Weight tiles exceed SRAM and stress DRAM headroom, which motivates quantization. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
 
 The ARM Cortex-R82 is the first realistic candidate for hosting TinyLMs. It offers an MMU to run rich operating systems like Linux, which is necessary for hosting AI frameworks, while maintaining real-time deterministic control for storage tasks. The processor’s Neon SIMD technology can be utilized to accelerate matrix-vector multiplications, the core operation of transformer inference ([historical launch analysis](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications)).
 
@@ -191,7 +191,7 @@ For an SSD controller, the following model scales and architectures are technica
 
 ![Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band](figures/model-footprint-mb.png)
 
-*Compressed weight size per model (bars, log MB) against the typical total controller DRAM band from the table (green, 1 to 4 GB). That is the intended comparison: weights versus available DRAM headroom, not a second plotted metric. Quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint, TinyML the 50 MB cap. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
+*Compressed weight size per model (bars, log MB). Green band: typical total controller DRAM pool (1 to 4 GB) from the table. Gray dashed line: ~100 MB reference. Compare bar height to DRAM headroom; quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint, TinyML the 50 MB cap. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
 
 Natural language queries on a storage controller would likely target a 1B parameter model at 2-bit precision. While inference might be slow (approximately 0.5 to 1 token per second), it is sufficient for background metadata generation, document summarization, and semantic tagging of stored files.
 
