@@ -36,9 +36,13 @@ def _setup_style() -> None:
             "text.color": COLORS["text"],
             "xtick.color": COLORS["text"],
             "ytick.color": COLORS["text"],
-            "font.size": 10,
-            "axes.titlesize": 11,
+            "font.size": 11,
+            "axes.titlesize": 13,
+            "axes.labelsize": 11,
             "axes.titleweight": "600",
+            "legend.fontsize": 10,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
         }
     )
 
@@ -49,7 +53,7 @@ def figure_bics_layers(out_dir: Path) -> None:
     values = [218, 332]
     colors = [COLORS["bics_8"], COLORS["bics_10"]]
 
-    fig, ax = plt.subplots(figsize=(10.0, 4.0), dpi=150)
+    fig, ax = plt.subplots(figsize=(11.0, 4.6), dpi=150)
     y = range(len(labels))
     bars = ax.barh(y, values, height=0.55, color=colors, edgecolor="white", linewidth=1.2)
     ax.set_yticks(list(y))
@@ -64,7 +68,7 @@ def figure_bics_layers(out_dir: Path) -> None:
             f"{val}",
             va="center",
             ha="left",
-            fontsize=10,
+            fontsize=11,
             color=COLORS["text"],
         )
     ax.axvline(218, color=COLORS["muted"], linestyle="--", linewidth=0.8, alpha=0.5, zorder=0)
@@ -95,7 +99,7 @@ def figure_model_footprint(out_dir: Path) -> None:
     dram_min_mb = 1024  # 1 GB
     dram_max_mb = 4096  # 4 GB
 
-    fig, ax = plt.subplots(figsize=(12.0, 6.0), dpi=150)
+    fig, ax = plt.subplots(figsize=(14.0, 7.5), dpi=150)
     x = list(range(len(models)))
     # Log scale so bars and multi-GB DRAM envelope share one readable chart
     ax.set_yscale("log")
@@ -118,7 +122,7 @@ def figure_model_footprint(out_dir: Path) -> None:
     )
     bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
     ax.set_xticks(x)
-    ax.set_xticklabels(models, fontsize=10)
+    ax.set_xticklabels(models, fontsize=11)
     ax.set_ylabel("Size (MB), log scale")
     ax.set_title("Quantized weight footprint (MB) vs controller DRAM envelope")
     for bar, val in zip(bars, sizes_mb):
@@ -128,11 +132,11 @@ def figure_model_footprint(out_dir: Path) -> None:
             f"{val}",
             ha="center",
             va="bottom",
-            fontsize=9,
+            fontsize=11,
             color=COLORS["text"],
             zorder=3,
         )
-    ax.legend(loc="upper left", fontsize=8.5, framealpha=0.92, borderaxespad=0.5)
+    ax.legend(loc="upper left", fontsize=10, framealpha=0.92, borderaxespad=0.5)
     ax.text(
         0.02,
         -0.38,
@@ -142,11 +146,11 @@ def figure_model_footprint(out_dir: Path) -> None:
         "best footprint, see latency and reasoning tradeoffs in the README table. Llama uses the "
         "~200 to 300 MB midpoint.",
         transform=ax.transAxes,
-        fontsize=8,
+        fontsize=9,
         color=COLORS["muted"],
         va="top",
     )
-    fig.subplots_adjust(bottom=0.34)
+    fig.subplots_adjust(bottom=0.32)
     _save_both(fig, out_dir / "model-footprint-mb")
     plt.close(fig)
 
@@ -158,7 +162,7 @@ def figure_memory_ladder(out_dir: Path) -> None:
     bytes_vals = [0.5 * 1024**2, 2 * 1024**3]
     colors = ["#fde68a", "#a5b4fc"]
 
-    fig, ax = plt.subplots(figsize=(9.0, 4.2), dpi=150)
+    fig, ax = plt.subplots(figsize=(11.0, 5.0), dpi=150)
     x = range(len(labels))
     ax.bar(x, bytes_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
     ax.set_xticks(list(x))
@@ -171,7 +175,7 @@ def figure_memory_ladder(out_dir: Path) -> None:
     ax.set_ylim(ymin, ymax)
     fmt_labels = ["< 1 MB class", "~2 GB (mid of 1 to 4 GB range)"]
     for i, (v, fl) in enumerate(zip(bytes_vals, fmt_labels)):
-        ax.text(i, v * 1.35, fl, ha="center", va="bottom", fontsize=8.5, color=COLORS["text"])
+        ax.text(i, v * 1.35, fl, ha="center", va="bottom", fontsize=10, color=COLORS["text"])
     ax.text(
         0.02,
         -0.24,
@@ -190,7 +194,7 @@ def _save_both(fig: plt.Figure, base_path: Path) -> None:
     base_path.parent.mkdir(parents=True, exist_ok=True)
     png = base_path.with_suffix(".png")
     svg = base_path.with_suffix(".svg")
-    fig.savefig(png, dpi=200, bbox_inches="tight", facecolor="white")
+    fig.savefig(png, dpi=240, bbox_inches="tight", facecolor="white")
     fig.savefig(svg, bbox_inches="tight", facecolor="white")
     print(f"Wrote {png}")
     print(f"Wrote {svg}")
