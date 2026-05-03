@@ -95,7 +95,7 @@ def figure_model_footprint(out_dir: Path) -> None:
     dram_min_mb = 1024  # 1 GB
     dram_max_mb = 4096  # 4 GB
 
-    fig, ax = plt.subplots(figsize=(10.5, 5.2), dpi=150)
+    fig, ax = plt.subplots(figsize=(12.0, 6.0), dpi=150)
     x = list(range(len(models)))
     # Log scale so bars and multi-GB DRAM envelope share one readable chart
     ax.set_yscale("log")

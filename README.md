@@ -57,11 +57,7 @@ The roadmap for 2026 to 2027 targets the mass production of 10th-generation BiCS
 | BiCS 9 | Developing | Enhanced bit density, power efficiency | Data-intensive AI, high-speed interfaces |
 | BiCS 10 | 332 layers | Industry-leading layer count | Generative AI training and inference infrastructure |
 
-<div align="center">
-
-<img src="figures/bics-layers.png" alt="BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)" width="980" />
-
-</div>
+<img src="figures/bics-layers.png" alt="BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)" width="100%" />
 
 *Numeric roadmap chart (BiCS 9 is developing without a public layer count in the source roadmap figures above, so it is omitted). Vector: [bics-layers.svg](figures/bics-layers.svg).*
 
@@ -167,11 +163,7 @@ flowchart TB
  D --> Q[Quantization and weight tiling required]
 ```
 
-<div align="center">
-
-<img src="figures/memory-hierarchy-log.png" alt="Memory hierarchy gap on SSD controllers, log scale (illustrative)" width="980" />
-
-</div>
+<img src="figures/memory-hierarchy-log.png" alt="Memory hierarchy gap on SSD controllers, log scale (illustrative)" width="100%" />
 
 *Compares two capacities on one chart (on-chip SRAM versus a midpoint in the 1 to 4 GB controller DRAM envelope), log scale. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
 
@@ -197,11 +189,7 @@ For an SSD controller, the following model scales and architectures are technica
 | Phi-3.5-mini | 3.8 billion | 1.58-bit (BitNet) | ~600 MB | Requires 1GB+ controller DRAM |
 | TinyML or MobileNet | Less than 100 million | 8-bit or 4-bit | Less than 50 MB | Real-time, limited reasoning |
 
-<div align="center">
-
-<img src="figures/model-footprint-mb.png" alt="Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band" width="980" />
-
-</div>
+<img src="figures/model-footprint-mb.png" alt="Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band" width="100%" />
 
 *Compressed weight size per model (bars, log MB) against the typical total controller DRAM band from the table (green, 1 to 4 GB). That is the intended comparison: weights versus available DRAM headroom, not a second plotted metric. Quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint, TinyML the 50 MB cap. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
 
@@ -398,6 +386,6 @@ The numbered list below is the consolidated citation set for this document. Each
 
 ---
 
-This repository is a **living landscape analysis**: it tracks a fast-moving intersection of storage, silicon, and AI, and is **not** presented as a finished product, vendor specification, or static snapshot. The authors maintain it as part of **active work** in computational storage and adjacent inference architectures. Expect updates as roadmaps, papers, and markets shift.
+This repository is a **living landscape analysis**: it tracks a fast-moving intersection of storage, silicon, and AI, and is **not** presented as a finished product, vendor specification, or static snapshot. It is maintained as part of **active work** in computational storage and adjacent inference architectures by [@rosspeili](https://github.com/rosspeili). Expect updates as roadmaps, papers, and markets shift.
 
 If you operate in this space, **contributions are welcome**: sharper citations, factual corrections, missing benchmarks or products, and pointers to primary sources all help keep the analysis honest and useful. Product and trademark names cited herein belong to their respective owners.
