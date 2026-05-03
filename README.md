@@ -156,11 +156,11 @@ SSD controllers are architected for deterministic performance and reliability, n
 
 ```mermaid
 flowchart TB
- H[Host workload expectations] --> P[Power ceiling 7 to 25 W]
- P --> C[Clock 1.0 to 1.8 GHz]
- C --> S[On-chip SRAM under approx. 1 MB per core]
- S --> D[System DRAM 1 to 4 GB]
- D --> Q[Quantization and weight tiling required]
+    A["Host workload expectations"] --> B["Power ceiling 7 to 25 W"]
+    B --> C["Clock 1.0 to 1.8 GHz"]
+    C --> D["On-chip SRAM ~1 MB per core"]
+    D --> E["System DRAM 1 to 4 GB"]
+    E --> F["Quantization and weight tiling required"]
 ```
 
 ![Memory hierarchy gap on SSD controllers, log scale (illustrative)](figures/memory-hierarchy-log.png)

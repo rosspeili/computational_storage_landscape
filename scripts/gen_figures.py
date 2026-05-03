@@ -19,6 +19,7 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 
 # Pastel palette aligned with README badges / skillware-style tones
 COLORS = {
@@ -31,6 +32,20 @@ COLORS = {
     "muted": "#64748b",
     "grid": "#e2e8f0",
 }
+
+
+def _format_mb_tick(val: float, _pos: int | None = None) -> str:
+    """Human-readable MB / GB labels for log axes (no 10^n notation)."""
+    if val >= 1024:
+        gb = val / 1024.0
+        if abs(gb - round(gb)) < 0.06:
+            return f"{int(round(gb))} GB"
+        return f"{gb:.1f} GB"
+    if val < 1:
+        return f"{val:g} MB"
+    if abs(val - round(val)) < 0.06:
+        return f"{int(round(val))} MB"
+    return f"{val:g} MB"
 
 
 def _setup_style() -> None:
@@ -98,6 +113,9 @@ def figure_model_footprint(out_dir: Path) -> None:
     x = list(range(len(models)))
     ax.set_yscale("log")
     ax.set_ylim(40, 6000)
+    ax.yaxis.set_major_formatter(FuncFormatter(_format_mb_tick))
+    ax.set_yticks([50, 100, 250, 500, 1024, 2048, 4096])
+    ax.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6)
     ax.axhspan(dram_min_mb, dram_max_mb, color="#bbf7d0", alpha=0.35, zorder=0)
     ax.axhline(
         100,
@@ -110,7 +128,7 @@ def figure_model_footprint(out_dir: Path) -> None:
     bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
     ax.set_xticks(x)
     ax.set_xticklabels(models, fontsize=11)
-    ax.set_ylabel("MB (log)")
+    ax.set_ylabel("Compressed weight size (MB, log scale)")
     ax.set_title("Compressed weights vs controller DRAM range", fontsize=12, pad=10)
     for bar, val in zip(bars, sizes_mb):
         ax.text(
@@ -130,23 +148,24 @@ def figure_model_footprint(out_dir: Path) -> None:
 
 
 def figure_memory_ladder(out_dir: Path) -> None:
-    """Log-scale comparison: on-chip SRAM vs controller DRAM envelope (orders of magnitude)."""
+    """Log-scale comparison: on-chip SRAM vs controller DRAM (README hardware table)."""
     labels = ["SRAM", "DRAM"]
-    # Representative points: <1 MB vs 1–4 GB → use 0.5 MB and 2 GB midpoint for visualization
-    bytes_vals = [0.5 * 1024**2, 2 * 1024**3]
+    # Align with table: SRAM <1 MB per core; DRAM 1–4 GB → use 0.5 MB and 2 GB midpoint (same story as README caption).
+    mb_vals = [0.5, 2048.0]
     colors = ["#fde68a", "#a5b4fc"]
 
-    fig, ax = plt.subplots(figsize=(8.0, 4.8), dpi=150)
+    fig, ax = plt.subplots(figsize=(8.5, 5.0), dpi=150)
     x = range(len(labels))
-    ax.bar(x, bytes_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
+    ax.bar(x, mb_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
     ax.set_xticks(list(x))
-    ax.set_xticklabels(labels)
-    ax.set_ylabel("Bytes (log)")
-    ax.set_title("On-controller memory: SRAM vs DRAM (illustrative)", fontsize=12, pad=10)
+    ax.set_xticklabels(labels, fontsize=10)
+    ax.set_ylabel("Capacity (MB / GB, log scale)")
+    ax.set_title("On-controller memory: SRAM vs DRAM", fontsize=12, pad=10)
     ax.set_yscale("log")
-    ymin = 10**5
-    ymax = 5 * 10**10
-    ax.set_ylim(ymin, ymax)
+    ax.set_ylim(0.2, 8192)
+    ax.yaxis.set_major_formatter(FuncFormatter(_format_mb_tick))
+    ax.set_yticks([0.5, 1, 10, 100, 1024, 2048, 4096])
+    ax.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6)
     fig.tight_layout()
     _save_both(fig, out_dir / "memory-hierarchy-log")
     plt.close(fig)
