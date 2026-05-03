@@ -59,7 +59,7 @@ The roadmap for 2026 to 2027 targets the mass production of 10th-generation BiCS
 
 ![BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)](figures/bics-layers.png)
 
-*Numeric roadmap chart: horizontal bars are public BiCS 8 and BiCS 10 vertical layer counts; the dashed vertical line marks the BiCS 8 figure. BiCS 9 is developing without a public layer count in the roadmap table above, so it is not plotted. Vector: [bics-layers.svg](figures/bics-layers.svg).*
+*Numeric roadmap chart: horizontal bars are public BiCS 8 and BiCS 10 vertical layer counts on a linear layer axis (grid every 50 layers); the dashed vertical line marks the BiCS 8 figure. BiCS 9 is developing without a public layer count in the roadmap table above, so it is not plotted. Vector: [bics-layers.svg](figures/bics-layers.svg).*
 
 Controller and firmware intelligence trends intersect with patent analytics and competitive teardowns ([SSD controller technology landscape](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/)).
 
@@ -163,9 +163,9 @@ flowchart TB
     E --> F["Quantization and weight tiling required"]
 ```
 
-![Memory hierarchy gap on SSD controllers, log scale (illustrative)](figures/memory-hierarchy-log.png)
+![Memory hierarchy gap on SSD controllers: SRAM vs DRAM in MB (linear axes)](figures/memory-hierarchy-mb.png)
 
-*Illustrative comparison on one log-scale chart: left bar is on-chip SRAM class (under about 1 MB per core), right bar is a ~2 GB midpoint within the 1 to 4 GB controller DRAM envelope (see the mermaid block above). Weight tiles exceed SRAM and stress DRAM headroom, which motivates quantization. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
+*Two linear MB panels (same unit, equal vertical steps): left — on-chip SRAM class (about 0.5 MB illustrative, under roughly 1 MB per core from the table); right — system DRAM with a green band for the typical 1024 to 4096 MB controller pool and a bar at 2048 MB (midpoint of the 1 to 4 GB envelope in the mermaid block above). Weight tiles exceed SRAM and stress DRAM headroom, which motivates quantization. [memory-hierarchy-mb.svg](figures/memory-hierarchy-mb.svg).*
 
 The ARM Cortex-R82 is the first realistic candidate for hosting TinyLMs. It offers an MMU to run rich operating systems like Linux, which is necessary for hosting AI frameworks, while maintaining real-time deterministic control for storage tasks. The processor’s Neon SIMD technology can be utilized to accelerate matrix-vector multiplications, the core operation of transformer inference ([historical launch analysis](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications)).
 
@@ -189,9 +189,9 @@ For an SSD controller, the following model scales and architectures are technica
 | Phi-3.5-mini | 3.8 billion | 1.58-bit (BitNet) | ~600 MB | Requires 1GB+ controller DRAM |
 | TinyML or MobileNet | Less than 100 million | 8-bit or 4-bit | Less than 50 MB | Real-time, limited reasoning |
 
-![Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band](figures/model-footprint-mb.png)
+![Quantized model weight footprint (MB, linear scale) with typical 1 to 4 GB controller DRAM band](figures/model-footprint-mb.png)
 
-*Compressed weight size per model (bars, log MB). Green band: typical total controller DRAM pool (1 to 4 GB) from the table. Gray dashed line: ~100 MB reference. Compare bar height to DRAM headroom; quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint, TinyML the 50 MB cap. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
+*Compressed weight size per model (MB on a linear axis; tick marks are all megabytes). Green band: typical total controller DRAM pool (1024 to 4096 MB) from the hardware table. Compare bar height to that band for headroom; quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint (250 MB here), TinyML the 50 MB cap, Phi about 600 MB. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
 
 Natural language queries on a storage controller would likely target a 1B parameter model at 2-bit precision. While inference might be slow (approximately 0.5 to 1 token per second), it is sufficient for background metadata generation, document summarization, and semantic tagging of stored files.
 

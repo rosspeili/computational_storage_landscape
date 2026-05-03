@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter
+from matplotlib.ticker import FuncFormatter, MultipleLocator
 
 # Pastel palette aligned with README badges / skillware-style tones
 COLORS = {
@@ -34,16 +34,9 @@ COLORS = {
 }
 
 
-def _format_mb_tick(val: float, _pos: int | None = None) -> str:
-    """Human-readable MB / GB labels for log axes (no 10^n notation)."""
-    if val >= 1024:
-        gb = val / 1024.0
-        if abs(gb - round(gb)) < 0.06:
-            return f"{int(round(gb))} GB"
-        return f"{gb:.1f} GB"
-    if val < 1:
-        return f"{val:g} MB"
-    if abs(val - round(val)) < 0.06:
+def _mb_tick_linear(val: float, _pos: int | None = None) -> str:
+    """Axis ticks for linear MB scales (single unit, no GB switching)."""
+    if abs(val - round(val)) < 1e-6:
         return f"{int(round(val))} MB"
     return f"{val:g} MB"
 
@@ -76,6 +69,7 @@ def figure_bics_layers(out_dir: Path) -> None:
     colors = [COLORS["bics_8"], COLORS["bics_10"]]
 
     fig, ax = plt.subplots(figsize=(10.0, 3.8), dpi=150)
+    ax.set_axisbelow(True)
     y = range(len(labels))
     bars = ax.barh(y, values, height=0.55, color=colors, edgecolor="white", linewidth=1.2)
     ax.set_yticks(list(y))
@@ -83,6 +77,8 @@ def figure_bics_layers(out_dir: Path) -> None:
     ax.set_xlabel("Layers")
     ax.set_title("BiCS FLASH: public vertical layer counts (8th and 10th gen)", fontsize=12, pad=10)
     ax.set_xlim(0, max(values) * 1.12)
+    ax.xaxis.set_major_locator(MultipleLocator(50))
+    ax.grid(axis="x", alpha=0.28, linestyle="-", linewidth=0.6, color=COLORS["grid"], zorder=0)
     for bar, val in zip(bars, values):
         ax.text(
             val + 8,
@@ -93,47 +89,38 @@ def figure_bics_layers(out_dir: Path) -> None:
             fontsize=11,
             color=COLORS["text"],
         )
-    ax.axvline(218, color=COLORS["muted"], linestyle="--", linewidth=0.8, alpha=0.5, zorder=0)
+    ax.axvline(218, color=COLORS["muted"], linestyle="--", linewidth=0.9, alpha=0.65, zorder=0)
     fig.tight_layout()
     _save_both(fig, out_dir / "bics-layers")
     plt.close(fig)
 
 
 def figure_model_footprint(out_dir: Path) -> None:
-    """Compressed weight footprint (MB) vs typical controller DRAM pool (1 to 4 GB band)."""
-    # Short labels only; specs and prose live in README.md (same pattern as other figures here).
+    """Compressed weight footprint (MB, linear) vs typical controller DRAM pool (1 to 4 GB band)."""
     models = ["TinyML / MobileNet", "Llama-3.2-1B", "Phi-3.5-mini"]
-    # Midpoint for Llama range; cap for TinyML; cited ~600 for Phi
     sizes_mb = [50, 250, 600]
     colors = [COLORS["tiny"], COLORS["llama"], COLORS["phi"]]
-    dram_min_mb = 1024  # 1 GB
-    dram_max_mb = 4096  # 4 GB
+    dram_min_mb = 1024
+    dram_max_mb = 4096
+    y_max = 4400
 
-    fig, ax = plt.subplots(figsize=(9.0, 5.2), dpi=150)
+    fig, ax = plt.subplots(figsize=(9.0, 5.4), dpi=150)
     x = list(range(len(models)))
-    ax.set_yscale("log")
-    ax.set_ylim(40, 6000)
-    ax.yaxis.set_major_formatter(FuncFormatter(_format_mb_tick))
-    ax.set_yticks([50, 100, 250, 500, 1024, 2048, 4096])
-    ax.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6)
-    ax.axhspan(dram_min_mb, dram_max_mb, color="#bbf7d0", alpha=0.35, zorder=0)
-    ax.axhline(
-        100,
-        color=COLORS["muted"],
-        linestyle="--",
-        linewidth=0.9,
-        alpha=0.7,
-        zorder=1,
-    )
+    ax.set_axisbelow(True)
+    ax.axhspan(dram_min_mb, dram_max_mb, color="#bbf7d0", alpha=0.38, zorder=0)
     bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
     ax.set_xticks(x)
     ax.set_xticklabels(models, fontsize=11)
-    ax.set_ylabel("Compressed weight size (MB, log scale)")
+    ax.set_ylim(0, y_max)
+    ax.set_ylabel("Compressed weight size (MB)")
     ax.set_title("Compressed weights vs controller DRAM range", fontsize=12, pad=10)
+    ax.yaxis.set_major_formatter(FuncFormatter(_mb_tick_linear))
+    ax.set_yticks([0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000])
+    ax.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6, zorder=1)
     for bar, val in zip(bars, sizes_mb):
         ax.text(
             bar.get_x() + bar.get_width() / 2,
-            val * 1.12,
+            val + 120,
             f"{val}",
             ha="center",
             va="bottom",
@@ -147,27 +134,68 @@ def figure_model_footprint(out_dir: Path) -> None:
     plt.close(fig)
 
 
-def figure_memory_ladder(out_dir: Path) -> None:
-    """Log-scale comparison: on-chip SRAM vs controller DRAM (README hardware table)."""
-    labels = ["SRAM", "DRAM"]
-    # Align with table: SRAM <1 MB per core; DRAM 1–4 GB → use 0.5 MB and 2 GB midpoint (same story as README caption).
-    mb_vals = [0.5, 2048.0]
-    colors = ["#fde68a", "#a5b4fc"]
+def figure_memory_hierarchy(out_dir: Path) -> None:
+    """SRAM vs DRAM on linear MB axes (zoomed SRAM + full DRAM pool from README hardware table)."""
+    sram_mb = 0.5
+    dram_mid_mb = 2048.0
+    dram_min_mb = 1024
+    dram_max_mb = 4096
+    sram_ymax = 1.15
+    dram_ymax = 4600
 
-    fig, ax = plt.subplots(figsize=(8.5, 5.0), dpi=150)
-    x = range(len(labels))
-    ax.bar(x, mb_vals, color=colors, edgecolor="white", linewidth=1.2, width=0.55)
-    ax.set_xticks(list(x))
-    ax.set_xticklabels(labels, fontsize=10)
-    ax.set_ylabel("Capacity (MB / GB, log scale)")
-    ax.set_title("On-controller memory: SRAM vs DRAM", fontsize=12, pad=10)
-    ax.set_yscale("log")
-    ax.set_ylim(0.2, 8192)
-    ax.yaxis.set_major_formatter(FuncFormatter(_format_mb_tick))
-    ax.set_yticks([0.5, 1, 10, 100, 1024, 2048, 4096])
-    ax.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6)
-    fig.tight_layout()
-    _save_both(fig, out_dir / "memory-hierarchy-log")
+    fig, (ax_s, ax_d) = plt.subplots(
+        1,
+        2,
+        figsize=(10.0, 5.0),
+        dpi=150,
+        layout="constrained",
+        gridspec_kw={"width_ratios": [1.05, 1.2]},
+    )
+    fig.suptitle("On-controller memory: SRAM vs DRAM (linear MB)", fontsize=13, fontweight="600")
+
+    ax_s.set_axisbelow(True)
+    bars_s = ax_s.bar([0], [sram_mb], width=0.55, color="#fde68a", edgecolor="white", linewidth=1.2)
+    ax_s.set_xticks([0])
+    ax_s.set_xticklabels(["SRAM"], fontsize=10)
+    ax_s.set_ylim(0, sram_ymax)
+    ax_s.set_ylabel("Capacity (MB)")
+    ax_s.set_title("On-chip SRAM (illustrative)", fontsize=11, pad=8)
+    ax_s.yaxis.set_major_formatter(FuncFormatter(_mb_tick_linear))
+    ax_s.grid(True, axis="y", alpha=0.28, linestyle="-", linewidth=0.6)
+    ax_s.text(
+        0,
+        sram_mb + 0.06,
+        "0.5",
+        ha="center",
+        va="bottom",
+        fontsize=11,
+        color=COLORS["text"],
+    )
+
+    ax_d.set_axisbelow(True)
+    ax_d.axhspan(dram_min_mb, dram_max_mb, color="#bbf7d0", alpha=0.35, zorder=0)
+    ax_d.bar([0], [dram_mid_mb], width=0.55, color="#a5b4fc", edgecolor="white", linewidth=1.2, zorder=2)
+    ax_d.set_xticks([0])
+    ax_d.set_xticklabels(["DRAM"], fontsize=10)
+    ax_d.set_ylim(0, dram_ymax)
+    ax_d.set_ylabel("Capacity (MB)")
+    ax_d.set_title("System DRAM (controller pool)", fontsize=11, pad=8)
+    ax_d.yaxis.set_major_formatter(FuncFormatter(_mb_tick_linear))
+    ax_d.set_yticks([0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000])
+    ax_d.grid(True, axis="y", which="major", alpha=0.28, linestyle="-", linewidth=0.6, zorder=1)
+    ax_d.text(
+        0,
+        dram_mid_mb + 150,
+        "2048",
+        ha="center",
+        va="bottom",
+        fontsize=11,
+        color=COLORS["text"],
+        zorder=3,
+    )
+
+    fig.set_constrained_layout_pads(w_pad=0.05, h_pad=0.02, hspace=0, wspace=0.05)
+    _save_both(fig, out_dir / "memory-hierarchy-mb")
     plt.close(fig)
 
 
@@ -187,7 +215,7 @@ def main() -> int:
     _setup_style()
     figure_bics_layers(out_dir)
     figure_model_footprint(out_dir)
-    figure_memory_ladder(out_dir)
+    figure_memory_hierarchy(out_dir)
     print("Done.")
     return 0
 
