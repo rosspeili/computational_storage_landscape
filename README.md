@@ -2,7 +2,7 @@
 
 # Computational Storage Landscape: KIOXIA, NAND, and TinyLM on SSD Controllers
 
-Strategic analysis with **KIOXIA** as the primary lens—BiCS FLASH and XL-FLASH roadmaps, AiSAQ, Software-Enabled Flash (SEF), and positioning versus computational-storage competitors—plus market and technical context for embedding small language models in SSD controllers.
+Strategic analysis with **KIOXIA** as the primary lens, BiCS FLASH and XL-FLASH roadmaps, AiSAQ, Software-Enabled Flash (SEF), and positioning versus computational-storage competitors, plus market and technical context for embedding small language models in SSD controllers.
 
 <br/>
 
@@ -37,7 +37,7 @@ This report investigates the feasibility of embedding TinyLMs directly within [K
 
 Competitive pressure from integrated computational storage players like [ScaleFlux](https://scaleflux.com/partners/aic-and-scaleflux/), who are adopting [ARM Cortex-R82](https://www.arm.com/products/silicon-ip-cpu/cortex-r/cortex-r82) 64-bit real-time processors ([ScaleFlux announcement](https://scaleflux.com/in-the-media/scaleflux-to-integrate-arm-cortex-r82-processors-in-its-next-generation-enterprise-ssd-controllers/)), necessitates a strategic shift for KIOXIA to integrate dedicated neural processing units (NPUs) or systolic arrays within its controller silicon. Discussions of open, reusable ISA foundations for AI silicon ([Jon Peddie Research](https://www.jonpeddie.com/news/risc-v-becomes-ai-hardwares-open-foundation/)) sit alongside the dominance of licensed cores such as [Cortex-R82](https://developer.arm.com/en/Processors/Cortex-R82) in storage-class devices ([product coverage](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications)).
 
-Technical feasibility is anchored by extreme quantization techniques, specifically [1.58-bit ternary models (BitNet)](https://arxiv.org/html/2504.12285v2), which reduce model weights to a scale compatible with the sub-100MB memory constraints of a storage controller. Market signals indicate that privacy, data sovereignty, and the 200x energy efficiency advantage of local storage compute over remote DRAM accesses are driving enterprise demand for intelligent, queryable storage solutions; regulatory and compliance pressures are discussed widely in enterprise AI literature ([example overview](https://www.blackfog.com/5-enterprise-use-cases-ai-privacy-concerns/)).
+Technical feasibility is anchored by extreme quantization techniques, specifically [1.58-bit ternary models (BitNet)](https://arxiv.org/html/2504.12285v2), which reduce model weights to a scale compatible with the sub-100MB memory constraints of a storage controller. Market signals indicate that privacy, data sovereignty, and the 200x energy efficiency advantage of local storage compute over remote DRAM accesses are driving enterprise demand for intelligent, queryable storage solutions, and regulatory and compliance pressures are discussed widely in enterprise AI literature ([example overview](https://www.blackfog.com/5-enterprise-use-cases-ai-privacy-concerns/)).
 
 ---
 
@@ -49,7 +49,7 @@ KIOXIA’s trajectory is governed by a focus on maximizing bit density while sim
 
 The cornerstone of KIOXIA’s trajectory is the BiCS FLASH 3D technology, which has moved through ten generations of vertical and lateral scaling. The 8th generation marked a significant departure from traditional manufacturing by introducing CMOS directly bonded to array (CBA) technology. This process involves the separate fabrication of the CMOS logic wafer and the memory cell array wafer, which are then bonded together. This allows for the logic layer to be manufactured using more advanced process nodes without being subjected to the thermal cycles required for NAND cell formation, enabling higher interface speeds and more complex logic functions within the drive.
 
-The roadmap for 2026–2027 targets the mass production of 10th-generation BiCS FLASH, which is projected to achieve 332 layers. This represents a 1.5x increase in layer count over the 8th generation, which is essential for storing the massive vector databases associated with generative AI. The integration of CBA technology facilitates interface speeds up to 3.6 Gbps, providing the necessary bandwidth to support on-device AI accelerators. Trade press on [flash memory](https://www.techpowerup.com/news-tags/Flash+Memory?page=2) and archived industry reporting ([TweakTown news archive](https://www.tweaktown.com/news/archive/2023/9/index.html)) illustrates how OEM milestones are communicated alongside roadmap claims.
+The roadmap for 2026 to 2027 targets the mass production of 10th-generation BiCS FLASH, which is projected to achieve 332 layers. This represents a 1.5x increase in layer count over the 8th generation, which is essential for storing the massive vector databases associated with generative AI. The integration of CBA technology facilitates interface speeds up to 3.6 Gbps, providing the necessary bandwidth to support on-device AI accelerators. Trade press on [flash memory](https://www.techpowerup.com/news-tags/Flash+Memory?page=2) and archived industry reporting ([TweakTown news archive](https://www.tweaktown.com/news/archive/2023/9/index.html)) illustrates how OEM milestones are communicated alongside roadmap claims.
 
 | Generation | Stacking architecture | Key innovations | Targeted application |
 | --- | --- | --- | --- |
@@ -115,10 +115,10 @@ Samsung and ScaleFlux are currently leading the market in terms of product footp
 
 | Competitor | Primary AI or compute direction | Recent developments |
 | --- | --- | --- |
-| Samsung | FPGA-based SmartSSDs and HBM dominance | Acquisition of SanDisk patents to bolster SmartSSD efficiency; focus on HBM shortages persisting through 2027 |
-| ScaleFlux | ASIC-based CSDs with transparent compute | Adoption of ARM Cortex-R82 for next-gen AI storage ([press](https://scaleflux.com/in-the-media/scaleflux-to-integrate-arm-cortex-r82-processors-in-its-next-generation-enterprise-ssd-controllers/)); [CSD5000 series](https://scaleflux.com/in-the-media/scaleflux-reveals-the-revolutionary-csd5000-for-the-ai-era/) sampling ([product narrative](https://scaleflux.com/blog/csd5000-a-paradigm-shift-in-nvme-ssds-for-ai-and-data-center-infrastructure/)); [AI and GPU-focused solutions](https://scaleflux.com/solutions/artificial-intelligence-ai-machine-learning-and-inferencing-keeping-the-gpus-productive/); [inference outlook](https://scaleflux.com/storage/prepping-for-the-future-demands-of-ai-inference-reasoning-part-2/); ecosystem partnerships ([AIC and ScaleFlux](https://scaleflux.com/partners/aic-and-scaleflux/)) |
+| Samsung | FPGA-based SmartSSDs and HBM dominance | Acquisition of SanDisk patents to bolster SmartSSD efficiency, focus on HBM shortages persisting through 2027 |
+| ScaleFlux | ASIC-based CSDs with transparent compute | Adoption of ARM Cortex-R82 for next-gen AI storage ([press](https://scaleflux.com/in-the-media/scaleflux-to-integrate-arm-cortex-r82-processors-in-its-next-generation-enterprise-ssd-controllers/)), [CSD5000 series](https://scaleflux.com/in-the-media/scaleflux-reveals-the-revolutionary-csd5000-for-the-ai-era/) sampling ([product narrative](https://scaleflux.com/blog/csd5000-a-paradigm-shift-in-nvme-ssds-for-ai-and-data-center-infrastructure/)), [AI and GPU-focused solutions](https://scaleflux.com/solutions/artificial-intelligence-ai-machine-learning-and-inferencing-keeping-the-gpus-productive/), [inference outlook](https://scaleflux.com/storage/prepping-for-the-future-demands-of-ai-inference-reasoning-part-2/), ecosystem partnerships ([AIC and ScaleFlux](https://scaleflux.com/partners/aic-and-scaleflux/)) |
 | SK Hynix | Processing-in-memory (AiM) and HBM4 | Focus on HBM market leadership to address GPU memory bottlenecks |
-| Micron | HBM3e and CXL memory expansion | Leveraging CXL protocols for pooled memory; strong HBM and DRAM exposure |
+| Micron | HBM3e and CXL memory expansion | Leveraging CXL protocols for pooled memory, strong HBM and DRAM exposure |
 | ScaleFlux (controllers) | Computational storage controllers | Demonstration of 14 GB/s throughput with integrated compression engines |
 
 ### Startups and intelligent storage solutions
@@ -147,25 +147,25 @@ SSD controllers are architected for deterministic performance and reliability, n
 | Hardware metric | Typical enterprise SSD controller constraint | Technical impact on TinyLM |
 | --- | --- | --- |
 | Processor type | 32-bit or 64-bit real-time (for example, [ARM Cortex-R82](https://www.arm.com/products/silicon-ip-cpu/cortex-r/cortex-r82)) | R82 provides 64-bit addressing for greater than 4GB RAM but requires an MMU for Linux and AI stacks ([developer documentation](https://developer.arm.com/en/Processors/Cortex-R82)) |
-| Clock frequency | 1.0 GHz to 1.8 GHz | Significantly lower than host CPUs; limits tokens per second to low single digits |
-| On-chip SRAM | Less than 1 MB per core (tightly coupled memory) | Insufficient for even small model weight tiles; requires constant swapping |
-| System DRAM | 1 GB to 4 GB (internal or host-mapped) | Primary bottleneck for weight storage; requires aggressive quantization |
+| Clock frequency | 1.0 GHz to 1.8 GHz | Significantly lower than host CPUs, limits tokens per second to low single digits |
+| On-chip SRAM | Less than 1 MB per core (tightly coupled memory) | Insufficient for even small model weight tiles, requires constant swapping |
+| System DRAM | 1 GB to 4 GB (internal or host-mapped) | Primary bottleneck for weight storage, requires aggressive quantization |
 | Power budget | 7 W (mobile) to 25 W (enterprise) | Limits sustained high-throughput neural processing |
 
 **Constraint stack (conceptual).** The flowchart summarizes how on-controller limits compound for TinyLM hosting (qualitative order, not a literal firmware pipeline).
 
 ```mermaid
 flowchart TB
-    H[Host workload expectations] --> P[Power ceiling 7 to 25 W]
-    P --> C[Clock 1.0 to 1.8 GHz]
-    C --> S[On-chip SRAM under approx. 1 MB per core]
-    S --> D[System DRAM 1 to 4 GB]
-    D --> Q[Quantization and weight tiling required]
+ H[Host workload expectations] --> P[Power ceiling 7 to 25 W]
+ P --> C[Clock 1.0 to 1.8 GHz]
+ C --> S[On-chip SRAM under approx. 1 MB per core]
+ S --> D[System DRAM 1 to 4 GB]
+ D --> Q[Quantization and weight tiling required]
 ```
 
 ![Memory hierarchy gap on SSD controllers, log scale (illustrative)](figures/memory-hierarchy-log.png)
 
-*Contrasts on-chip SRAM class vs a mid-range point in the 1–4 GB controller DRAM envelope. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
+*Contrasts on-chip SRAM class vs a mid-range point in the 1 to 4 GB controller DRAM envelope. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
 
 The ARM Cortex-R82 is the first realistic candidate for hosting TinyLMs. It offers an MMU to run rich operating systems like Linux, which is necessary for hosting AI frameworks, while maintaining real-time deterministic control for storage tasks. The processor’s Neon SIMD technology can be utilized to accelerate matrix-vector multiplications, the core operation of transformer inference ([historical launch analysis](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications)).
 
@@ -173,7 +173,7 @@ The ARM Cortex-R82 is the first realistic candidate for hosting TinyLMs. It offe
 
 To fit a language model into the sub-100MB memory footprint typical of a controller’s available buffer, quantization must reach the 1-bit or 2-bit level.
 
-- **BitNet b1.58 (ternary quantization):** This paradigm maps weights to values of \{-1, 0, 1\}. It reduces the memory required for weights by orders of magnitude and replaces expensive floating-point multiplications with simple additions and subtractions ([technical report](https://arxiv.org/html/2504.12285v2); [discussion thread](https://www.reddit.com/r/LocalLLaMA/comments/1rybdkv/mathematics_behind_extreme_quantization_of/)).
+- **BitNet b1.58 (ternary quantization):** This paradigm maps weights to values of \{-1, 0, 1\}. It reduces the memory required for weights by orders of magnitude and replaces expensive floating-point multiplications with simple additions and subtractions ([technical report](https://arxiv.org/html/2504.12285v2), [discussion thread](https://www.reddit.com/r/LocalLLaMA/comments/1rybdkv/mathematics_behind_extreme_quantization_of/)).
 - **GGUF and llama.cpp:** These formats are optimized for CPU-based inference and allow for the offloading of model components between different storage tiers. Studies on Meta’s Llama 3.2 3B model show a 68.66% reduction in size using 4-bit quantization, enabling mobile execution ([quantization for mobile execution](https://arxiv.org/html/2512.06490v1)).
 - **TQ1_0 and TQ2_0:** Specialized packing methods for ternary values. TQ1_0 (5 trits in 8 bits) is highly memory-efficient, while TQ2_0 is optimized for computer memory boundaries to provide faster inference.
 
@@ -187,11 +187,11 @@ For an SSD controller, the following model scales and architectures are technica
 | --- | --- | --- | --- | --- |
 | Llama-3.2-1B | 1 billion | 2-bit or ternary | ~200 MB to 300 MB | Acceptable for offline indexing |
 | Phi-3.5-mini | 3.8 billion | 1.58-bit (BitNet) | ~600 MB | Requires 1GB+ controller DRAM |
-| TinyML or MobileNet | Less than 100 million | 8-bit or 4-bit | Less than 50 MB | Real-time; limited reasoning |
+| TinyML or MobileNet | Less than 100 million | 8-bit or 4-bit | Less than 50 MB | Real-time, limited reasoning |
 
 ![Representative quantized model footprint vs DRAM pressure (MB)](figures/model-footprint-mb.png)
 
-*Llama uses the midpoint of the ~200–300 MB range from the table; TinyML capped at 50 MB. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
+*Llama uses the midpoint of the ~200 to 300 MB range from the table, and TinyML is capped at 50 MB. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
 
 Natural language queries on a storage controller would likely target a 1B parameter model at 2-bit precision. While inference might be slow (approximately 0.5 to 1 token per second), it is sufficient for background metadata generation, document summarization, and semantic tagging of stored files.
 
@@ -240,7 +240,7 @@ The “AI PC” era is driving the integration of AI functions directly into sta
 
 ## KIOXIA’s positioning and gaps
 
-KIOXIA is currently in a state of rapid growth driven by the AI supercycle; market commentary has highlighted strengthening demand for AI-related storage ([Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)). However, the company faces critical strategic gaps in the hardware-software integration required for on-device AI. Group-level narratives on value creation are documented in the [Integrated Report 2025 materials](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf), while the published [corporate profile](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf) summarizes structural facts referenced throughout this document.
+KIOXIA is currently in a state of rapid growth driven by the AI supercycle, and market commentary has highlighted strengthening demand for AI-related storage ([Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)). However, the company faces critical strategic gaps in the hardware-software integration required for on-device AI. Group-level narratives on value creation are documented in the [Integrated Report 2025 materials](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf), while the published [corporate profile](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf) summarizes structural facts referenced throughout this document.
 
 ### Strengths and vulnerabilities
 
@@ -286,7 +286,7 @@ Leadership in technology development is concentrated in the Frontier Technology 
 KIOXIA Europe GmbH is headquartered in Düsseldorf, Germany, focusing primarily on sales and marketing ([regional offices overview](https://www.kioxia.com/en-jp/business/buy/global-sales.html)).
 
 - **Research presence:** KIOXIA Israel Ltd. serves as a key overseas R&D site for software and controller techniques.
-- **Regional collaboration potential:** No dedicated KIOXIA R&D center exists in Greece or Eastern Europe. The region nonetheless offers dense applied-AI and infrastructure research capacity. National-scale hubs include the [Centre for Research and Technology Hellas (CERTH)](https://www.certh.gr/en/), the [National Centre for Scientific Research “Demokritos”](https://www.demokritos.gr/?lang=en), and the [ATHENA Research Center](https://www.athenarc.gr/en/)—all plausible partners for data systems, edge AI, and industry-facing pilots tied to storage-adjacent workloads. Separately, the University of Nicosia (UNIC Athens) has partnered with Purdue University for a “living lab” in the Ellinikon smart city project, focusing on AI and data science ([Kathimerini coverage](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Greece’s National Recovery and Resilience Plan “Greece 2.0” is establishing innovation centers for digital skills and AI, presenting opportunities for academic-industrial collaboration ([Eurydice network news](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)).
+- **Regional collaboration potential:** No dedicated KIOXIA R&D center exists in Greece or Eastern Europe. The region nonetheless offers dense applied-AI and infrastructure research capacity. National-scale hubs include the [Centre for Research and Technology Hellas (CERTH)](https://www.certh.gr/en/), the [National Centre for Scientific Research “Demokritos”](https://www.demokritos.gr/?lang=en), and the [ATHENA Research Center](https://www.athenarc.gr/en/), all plausible partners for data systems, edge AI, and industry-facing pilots tied to storage-adjacent workloads. Separately, the University of Nicosia (UNIC Athens) has partnered with Purdue University for a “living lab” in the Ellinikon smart city project, focusing on AI and data science ([Kathimerini coverage](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s), [Purdue newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)). Greece’s National Recovery and Resilience Plan “Greece 2.0” is establishing innovation centers for digital skills and AI, presenting opportunities for academic-industrial collaboration ([Eurydice network news](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)).
 
 ---
 
@@ -322,67 +322,67 @@ KIOXIA is currently at an inflection point. The company’s mastery of NAND phys
 
 The numbered list below is the consolidated citation set for this document. Each entry appears inline above as a hyperlink at least once.
 
-1. [A New Era in AI Storage Pioneered by the Coexistence of HBM and SSDs – Unpacking Kioxia Strategy](https://www.kioxia.com/en-jp/insights/hbm-ssd-202603.html)  
-2. [SSD infrastructure becomes critical as AI inference scales – SiliconANGLE](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/)  
-3. [SolidAttention: Low-Latency SSD-based Serving on Memory-Constrained PCs – USENIX](https://www.usenix.org/system/files/fast26-zheng.pdf)  
-4. [KIOXIA achieves 4.8 billion high-dimensional vector search database on a single server, with 7.8x index build time acceleration via GPUs (Americas)](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260316-2.html)  
-5. [AiSAQ – Milvus documentation](https://milvus.io/docs/aisaq.md)  
-6. [Cortex-R82 – Arm product page](https://www.arm.com/products/silicon-ip-cpu/cortex-r/cortex-r82)  
-7. [ScaleFlux to integrate Arm Cortex-R82 processors in its next-generation enterprise SSD controllers](https://scaleflux.com/in-the-media/scaleflux-to-integrate-arm-cortex-r82-processors-in-its-next-generation-enterprise-ssd-controllers/)  
-8. [RISC-V becomes AI hardware’s open foundation – Jon Peddie Research](https://www.jonpeddie.com/news/risc-v-becomes-ai-hardwares-open-foundation/)  
-9. [BitNet b1.58 2B4T technical report – arXiv](https://arxiv.org/html/2504.12285v2)  
-10. [TinyML: enabling inference deep learning models on ultra-low-power IoT edge devices – PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9227753/)  
-11. [Enterprise object storage in the AI age – MinIO](https://www.min.io/learn/enterprise)  
-12. [Energy-efficient software–hardware co-design for machine learning: from TinyML to large language models – arXiv](https://arxiv.org/html/2603.23668v1)  
-13. [儲存即服務 (STaaS) 市場：策略洞察與預測 (2026–2031) – GII](https://www.gii.tw/report/ksi1995836-storage-service-staas-market-strategic-insights.html)  
-14. [AI applications – KIOXIA United States](https://americas.kioxia.com/en-us/business/application/ai.html)  
-15. [News posts matching “Flash Memory” – TechPowerUp](https://www.techpowerup.com/news-tags/Flash+Memory?page=2)  
-16. [Next-gen memory, SSD and AI solutions from Kioxia shine at CES 2026 – KIOXIA blog](https://blog-us.kioxia.com/post/2026/02/04/next-gen-memory-ssd-and-ai-solutions-from-kioxia-shine-at-ces-2026)  
-17. [XL-FLASH Storage Class Memory – KIOXIA United States](https://americas.kioxia.com/en-us/business/memory/xlflash.html)  
-18. [KIOXIA accelerates AI innovation with high-performance memory and SSD solutions at NVIDIA GTC 2026](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260312-1.html)  
-19. [KIOXIA announces new SSD model optimized for AI GPU-initiated workloads](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260316-1.html)  
-20. [News archive – September 2023 – TweakTown](https://www.tweaktown.com/news/archive/2023/9/index.html)  
-21. [Storage Short Take #48 – J Metz’s blog](https://jmetz.com/2022/08/storage-short-take-48/)  
-22. [kioxia-jp/aisaq-diskann – GitHub](https://github.com/kioxia-jp/aisaq-diskann)  
-23. [KIOXIA achieves 4.8 billion high-dimensional vector search database on a single server (Europe)](https://europe.kioxia.com/en-europe/business/news/2026/20260316-1.html)  
-24. [SSD controller technology landscape 2026 – PatSnap Eureka](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/)  
-25. [US8780634B2 – CAM NAND with OR function and full chip search capability – Google Patents](https://patents.google.com/patent/US8780634B2/en)  
-26. [Kioxia and Sandisk extend Yokkaichi joint venture agreement through 2034](https://www.kioxia.com/en-jp/about/news/2026/20260130-1.html)  
-27. [Integrated Report 2025 (full report, KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-all-view-en.pdf)  
-28. [Integrated Report 2025 – Management and capital (KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-04-en.pdf)  
-29. [Computational storage market report – MarketsandMarkets listing](https://www.marketsandmarkets.com/Market-Reports/computational-storage-market-71343109.html)  
-30. [Computational storage market worth $4.30 billion by 2032 – MarketsandMarkets via PR Newswire](https://www.prnewswire.com/news-releases/computational-storage-market-worth-4-30-billion-by-2032---exclusive-report-by-marketsandmarkets-302689302.html)  
-31. [ScaleFlux reveals the revolutionary CSD5000 for the AI era](https://scaleflux.com/in-the-media/scaleflux-reveals-the-revolutionary-csd5000-for-the-ai-era/)  
-32. [Artificial intelligence: machine learning and inferencing – keeping the GPUs productive – ScaleFlux](https://scaleflux.com/solutions/artificial-intelligence-ai-machine-learning-and-inferencing-keeping-the-gpus-productive/)  
-33. [CSD5000: a paradigm shift in NVMe SSDs for AI and data center infrastructure – ScaleFlux](https://scaleflux.com/blog/csd5000-a-paradigm-shift-in-nvme-ssds-for-ai-and-data-center-infrastructure/)  
-34. [Prepping for the future demands of AI inference reasoning: part 2 – ScaleFlux](https://scaleflux.com/storage/prepping-for-the-future-demands-of-ai-inference-reasoning-part-2/)  
-35. [KIOXIA AiSAQ technology integrated into Milvus vector database](https://americas.kioxia.com/en-us/business/news/2025/ssd-20251216-1.html)  
-36. [Cortex-R82 product support – Arm Developer](https://developer.arm.com/en/Processors/Cortex-R82)  
-37. [Arm’s new Cortex-R82 core targets advanced SSDs and in-storage processing applications – Tom’s Hardware](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications)  
-38. [Mathematics behind extreme quantization of Microsoft’s BitNet – Reddit r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/comments/1rybdkv/mathematics_behind_extreme_quantization_of/)  
-39. [Optimizing LLMs using quantization for mobile execution – arXiv](https://arxiv.org/html/2512.06490v1)  
-40. [Run massive AI models on tiny hardware with oLLM – Medium](https://sodevelopment.medium.com/run-massive-ai-models-on-tiny-hardware-with-ollm-ab8e3140acd7)  
-41. [CXL topology-aware and expander-driven prefetching: unlocking SSD performance – arXiv](https://arxiv.org/pdf/2505.18577)  
-42. [Storage software market size and forecast – Fortune Business Insights](https://www.fortunebusinessinsights.com/storage-software-market-110255)  
-43. [Enterprise-class hybrid storage market – Future Market Insights](https://www.futuremarketinsights.com/reports/enterprise-class-hybrid-storage-market)  
-44. [Drive enterprise intelligence with AI and connected data – Infor](https://www.infor.com/blog/enterprise-intelligence-ai-clean-connected-data)  
-45. [Google Cloud use cases: how enterprises run data and AI on GCP with Databricks – Databricks](https://www.databricks.com/blog/google-cloud-use-cases)  
-46. [Top enterprise AI use cases – NiCE](https://www.nice.com/enterprise-ai-platform/enterprise-ai-use-cases)  
-47. [Five enterprise use cases where AI privacy concerns must be addressed – BlackFog](https://www.blackfog.com/5-enterprise-use-cases-ai-privacy-concerns/)  
-48. [KIOXIA insights – United States](https://americas.kioxia.com/en-us/insights.html)  
-49. [Integrated Report 2025 – Kioxia Group value creation initiatives](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf)  
-50. [Storage as a Service (STaaS) market – Research and Markets listing](https://www.researchandmarkets.com/reports/6232382/storage-service-staas-market-strategic)  
-51. [Kioxia benefits from growing demand for AI storage – Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/)  
-52. [Global sales offices – KIOXIA](https://www.kioxia.com/en-jp/business/buy/global-sales.html)  
-53. [Samsung and SK hynix warn AI-driven memory shortages could last until 2027 and beyond – Tom’s Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/samsung-and-sk-hynix-warn-ai-driven-memory-shortages-could-last-until-2027-and-beyond-as-hbm-demand-explodes-customers-already-reserving-supply-years-ahead-while-the-wider-dram-market-begins-to-tighten)  
-54. [Samsung, SK Hynix, and Micron versus Kioxia in AI data centers – EEWORLD](https://en.eeworld.com.cn/news/manufacture/eic717137.html)  
-55. [AIC and ScaleFlux – ScaleFlux partners](https://scaleflux.com/partners/aic-and-scaleflux/)  
-56. [Group companies – KIOXIA](https://www.kioxia.com/en-jp/about/group.html)  
-57. [Corporate profile – KIOXIA Holdings](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf)  
-58. [UNIC Athens positioned as bridge between Europe and the US – KNEWS](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s)  
-59. [Purdue partners with University of Nicosia–Athens – Purdue University newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/)  
-60. [Greece: new innovation centres to boost digital skills and STEM education – Eurydice Network](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities)  
-61. [Delivering optimized Storage Class Memory with KIOXIA XL-FLASH technology – KIOXIA blog](https://blog-us.kioxia.com/post/2026/04/30/delivering-optimized-storage-class-memory-with-kioxia-xl-flash-technology)  
+1. [A New Era in AI Storage Pioneered by the Coexistence of HBM and SSDs, Unpacking Kioxia Strategy](https://www.kioxia.com/en-jp/insights/hbm-ssd-202603.html) 
+2. [SSD infrastructure becomes critical as AI inference scales, SiliconANGLE](https://siliconangle.com/2026/03/23/ssd-infrastructure-becomes-critical-ai-inference-scales-nvidiagtcai/) 
+3. [SolidAttention: Low-Latency SSD-based Serving on Memory-Constrained PCs, USENIX](https://www.usenix.org/system/files/fast26-zheng.pdf) 
+4. [KIOXIA achieves 4.8 billion high-dimensional vector search database on a single server, with 7.8x index build time acceleration via GPUs (Americas)](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260316-2.html) 
+5. [AiSAQ, Milvus documentation](https://milvus.io/docs/aisaq.md) 
+6. [Cortex-R82, Arm product page](https://www.arm.com/products/silicon-ip-cpu/cortex-r/cortex-r82) 
+7. [ScaleFlux to integrate Arm Cortex-R82 processors in its next-generation enterprise SSD controllers](https://scaleflux.com/in-the-media/scaleflux-to-integrate-arm-cortex-r82-processors-in-its-next-generation-enterprise-ssd-controllers/) 
+8. [RISC-V becomes AI hardware’s open foundation, Jon Peddie Research](https://www.jonpeddie.com/news/risc-v-becomes-ai-hardwares-open-foundation/) 
+9. [BitNet b1.58 2B4T technical report, arXiv](https://arxiv.org/html/2504.12285v2) 
+10. [TinyML: enabling inference deep learning models on ultra-low-power IoT edge devices, PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9227753/) 
+11. [Enterprise object storage in the AI age, MinIO](https://www.min.io/learn/enterprise) 
+12. [Energy-efficient software-hardware co-design for machine learning: from TinyML to large language models, arXiv](https://arxiv.org/html/2603.23668v1) 
+13. [儲存即服務 (STaaS) 市場：策略洞察與預測 (2026 to 2031), GII](https://www.gii.tw/report/ksi1995836-storage-service-staas-market-strategic-insights.html) 
+14. [AI applications, KIOXIA United States](https://americas.kioxia.com/en-us/business/application/ai.html) 
+15. [News posts matching “Flash Memory”, TechPowerUp](https://www.techpowerup.com/news-tags/Flash+Memory?page=2) 
+16. [Next-gen memory, SSD and AI solutions from Kioxia shine at CES 2026, KIOXIA blog](https://blog-us.kioxia.com/post/2026/02/04/next-gen-memory-ssd-and-ai-solutions-from-kioxia-shine-at-ces-2026) 
+17. [XL-FLASH Storage Class Memory, KIOXIA United States](https://americas.kioxia.com/en-us/business/memory/xlflash.html) 
+18. [KIOXIA accelerates AI innovation with high-performance memory and SSD solutions at NVIDIA GTC 2026](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260312-1.html) 
+19. [KIOXIA announces new SSD model optimized for AI GPU-initiated workloads](https://americas.kioxia.com/en-us/business/news/2026/ssd-20260316-1.html) 
+20. [News archive, September 2023, TweakTown](https://www.tweaktown.com/news/archive/2023/9/index.html) 
+21. [Storage Short Take #48, J Metz’s blog](https://jmetz.com/2022/08/storage-short-take-48/) 
+22. [kioxia-jp/aisaq-diskann, GitHub](https://github.com/kioxia-jp/aisaq-diskann) 
+23. [KIOXIA achieves 4.8 billion high-dimensional vector search database on a single server (Europe)](https://europe.kioxia.com/en-europe/business/news/2026/20260316-1.html) 
+24. [SSD controller technology landscape 2026, PatSnap Eureka](https://www.patsnap.com/resources/blog/rd-blog/ssd-controller-technology-landscape-2026-patsnap-eureka/) 
+25. [US8780634B2, CAM NAND with OR function and full chip search capability, Google Patents](https://patents.google.com/patent/US8780634B2/en) 
+26. [Kioxia and Sandisk extend Yokkaichi joint venture agreement through 2034](https://www.kioxia.com/en-jp/about/news/2026/20260130-1.html) 
+27. [Integrated Report 2025 (full report, KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-all-view-en.pdf) 
+28. [Integrated Report 2025, Management and capital (KIOXIA Holdings)](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-04-en.pdf) 
+29. [Computational storage market report, MarketsandMarkets listing](https://www.marketsandmarkets.com/Market-Reports/computational-storage-market-71343109.html) 
+30. [Computational storage market worth $4.30 billion by 2032, MarketsandMarkets via PR Newswire](https://www.prnewswire.com/news-releases/computational-storage-market-worth-4-30-billion-by-2032---exclusive-report-by-marketsandmarkets-302689302.html) 
+31. [ScaleFlux reveals the revolutionary CSD5000 for the AI era](https://scaleflux.com/in-the-media/scaleflux-reveals-the-revolutionary-csd5000-for-the-ai-era/) 
+32. [Artificial intelligence: machine learning and inferencing, keeping the GPUs productive, ScaleFlux](https://scaleflux.com/solutions/artificial-intelligence-ai-machine-learning-and-inferencing-keeping-the-gpus-productive/) 
+33. [CSD5000: a paradigm shift in NVMe SSDs for AI and data center infrastructure, ScaleFlux](https://scaleflux.com/blog/csd5000-a-paradigm-shift-in-nvme-ssds-for-ai-and-data-center-infrastructure/) 
+34. [Prepping for the future demands of AI inference reasoning: part 2, ScaleFlux](https://scaleflux.com/storage/prepping-for-the-future-demands-of-ai-inference-reasoning-part-2/) 
+35. [KIOXIA AiSAQ technology integrated into Milvus vector database](https://americas.kioxia.com/en-us/business/news/2025/ssd-20251216-1.html) 
+36. [Cortex-R82 product support, Arm Developer](https://developer.arm.com/en/Processors/Cortex-R82) 
+37. [Arm’s new Cortex-R82 core targets advanced SSDs and in-storage processing applications, Tom’s Hardware](https://www.tomshardware.com/news/arm-new-cortexr82-core-targets-advanced-ssds-and-instorage-processing-applications) 
+38. [Mathematics behind extreme quantization of Microsoft’s BitNet, Reddit r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/comments/1rybdkv/mathematics_behind_extreme_quantization_of/) 
+39. [Optimizing LLMs using quantization for mobile execution, arXiv](https://arxiv.org/html/2512.06490v1) 
+40. [Run massive AI models on tiny hardware with oLLM, Medium](https://sodevelopment.medium.com/run-massive-ai-models-on-tiny-hardware-with-ollm-ab8e3140acd7) 
+41. [CXL topology-aware and expander-driven prefetching: unlocking SSD performance, arXiv](https://arxiv.org/pdf/2505.18577) 
+42. [Storage software market size and forecast, Fortune Business Insights](https://www.fortunebusinessinsights.com/storage-software-market-110255) 
+43. [Enterprise-class hybrid storage market, Future Market Insights](https://www.futuremarketinsights.com/reports/enterprise-class-hybrid-storage-market) 
+44. [Drive enterprise intelligence with AI and connected data, Infor](https://www.infor.com/blog/enterprise-intelligence-ai-clean-connected-data) 
+45. [Google Cloud use cases: how enterprises run data and AI on GCP with Databricks, Databricks](https://www.databricks.com/blog/google-cloud-use-cases) 
+46. [Top enterprise AI use cases, NiCE](https://www.nice.com/enterprise-ai-platform/enterprise-ai-use-cases) 
+47. [Five enterprise use cases where AI privacy concerns must be addressed, BlackFog](https://www.blackfog.com/5-enterprise-use-cases-ai-privacy-concerns/) 
+48. [KIOXIA insights, United States](https://americas.kioxia.com/en-us/insights.html) 
+49. [Integrated Report 2025, Kioxia Group value creation initiatives](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/ir/library/integrated-report/2025/asset/Integrated-Report-2025-03-en.pdf) 
+50. [Storage as a Service (STaaS) market, Research and Markets listing](https://www.researchandmarkets.com/reports/6232382/storage-service-staas-market-strategic) 
+51. [Kioxia benefits from growing demand for AI storage, Techzine Global](https://www.techzine.eu/news/infrastructure/137565/kioxia-benefits-from-growing-demand-for-ai-storage/) 
+52. [Global sales offices, KIOXIA](https://www.kioxia.com/en-jp/business/buy/global-sales.html) 
+53. [Samsung and SK hynix warn AI-driven memory shortages could last until 2027 and beyond, Tom’s Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/samsung-and-sk-hynix-warn-ai-driven-memory-shortages-could-last-until-2027-and-beyond-as-hbm-demand-explodes-customers-already-reserving-supply-years-ahead-while-the-wider-dram-market-begins-to-tighten) 
+54. [Samsung, SK Hynix, and Micron versus Kioxia in AI data centers, EEWORLD](https://en.eeworld.com.cn/news/manufacture/eic717137.html) 
+55. [AIC and ScaleFlux, ScaleFlux partners](https://scaleflux.com/partners/aic-and-scaleflux/) 
+56. [Group companies, KIOXIA](https://www.kioxia.com/en-jp/about/group.html) 
+57. [Corporate profile, KIOXIA Holdings](https://www.kioxia-holdings.com/content/dam/kioxia-hd/en-jp/about/asset/kioxia-holdings-corporate-profile-e.pdf) 
+58. [UNIC Athens positioned as bridge between Europe and the US, KNEWS](https://knews.kathimerini.com.cy/en/news/unic-athens-positioned-as-bridge-between-europe-and-the-u-s) 
+59. [Purdue partners with University of Nicosia-Athens, Purdue University newsroom](https://www.purdue.edu/newsroom/2026/Q1/purdue-partners-with-university-of-nicosia-athens-to-advance-research-collaboration-and-online-learning-in-europe/) 
+60. [Greece: new innovation centres to boost digital skills and STEM education, Eurydice Network](https://eurydice.eacea.ec.europa.eu/news/greece-new-innovation-centres-boost-digital-skills-and-stem-education-alignment-eu-priorities) 
+61. [Delivering optimized Storage Class Memory with KIOXIA XL-FLASH technology, KIOXIA blog](https://blog-us.kioxia.com/post/2026/04/30/delivering-optimized-storage-class-memory-with-kioxia-xl-flash-technology) 
 
 ---
 
