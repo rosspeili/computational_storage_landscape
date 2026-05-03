@@ -12,3 +12,6 @@ venv/
 .vscode/
 *.swp
 .DS_Store
+
+# Do not track source PDFs; README is the canonical text
+*.pdf
