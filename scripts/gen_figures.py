@@ -13,7 +13,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-# Pastel palette aligned with briefing badges / skillware-style tones
+# Pastel palette aligned with README badges / skillware-style tones
 COLORS = {
     "bics_8": "#bae6fd",
     "bics_10": "#bbf7d0",
@@ -44,7 +44,7 @@ def _setup_style() -> None:
 
 
 def figure_bics_layers(out_dir: Path) -> None:
-    """BiCS 8 vs BiCS 10 public layer counts (BiCS 9 developing — not plotted numerically)."""
+    """BiCS 8 and BiCS 10 public layer counts (BiCS 9 developing, not plotted numerically)."""
     labels = ["BiCS 8\n(~218 layers)", "BiCS 10\n(332 layers)"]
     values = [218, 332]
     colors = [COLORS["bics_8"], COLORS["bics_10"]]
@@ -55,7 +55,7 @@ def figure_bics_layers(out_dir: Path) -> None:
     ax.set_yticks(list(y))
     ax.set_yticklabels(labels)
     ax.set_xlabel("Vertical layer count (public roadmap figures)")
-    ax.set_title("BiCS FLASH: published layer targets (8th vs 10th generation)")
+    ax.set_title("BiCS FLASH: published vertical layer counts (8th and 10th generations)")
     ax.set_xlim(0, max(values) * 1.12)
     for bar, val in zip(bars, values):
         ax.text(
@@ -71,7 +71,7 @@ def figure_bics_layers(out_dir: Path) -> None:
     ax.text(
         0.02,
         -0.32,
-        "BiCS 9 is in development; the briefing does not cite a public layer count, so it is omitted here.",
+        "BiCS 9 is in development; public layer count is not in the roadmap table above, so it is omitted here.",
         transform=ax.transAxes,
         fontsize=8,
         color=COLORS["muted"],
@@ -83,44 +83,70 @@ def figure_bics_layers(out_dir: Path) -> None:
 
 
 def figure_model_footprint(out_dir: Path) -> None:
-    """Effective model size (MB) — representative midpoints from the briefing table."""
+    """Compressed weight footprint (MB) vs typical controller DRAM pool (1 to 4 GB band)."""
     models = [
         "TinyML / MobileNet\n(<100M params, 8/4-bit)",
-        "Llama-3.2-1B\n(2-bit / ternary, ~200–300 MB)",
+        "Llama-3.2-1B\n(2-bit / ternary, ~200 to 300 MB)",
         "Phi-3.5-mini\n(1.58-bit BitNet, ~600 MB)",
     ]
-    # Midpoint for Llama range; upper bound for TinyML; cited ~600 for Phi
+    # Midpoint for Llama range; cap for TinyML; cited ~600 for Phi
     sizes_mb = [50, 250, 600]
     colors = [COLORS["tiny"], COLORS["llama"], COLORS["phi"]]
+    dram_min_mb = 1024  # 1 GB
+    dram_max_mb = 4096  # 4 GB
 
-    fig, ax = plt.subplots(figsize=(7.2, 3.8), dpi=150)
-    x = range(len(models))
-    bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62)
-    ax.set_xticks(list(x))
+    fig, ax = plt.subplots(figsize=(7.4, 4.4), dpi=150)
+    x = list(range(len(models)))
+    # Log scale so bars and multi-GB DRAM envelope share one readable chart
+    ax.set_yscale("log")
+    ax.set_ylim(40, 6000)
+    ax.axhspan(
+        dram_min_mb,
+        dram_max_mb,
+        color="#bbf7d0",
+        alpha=0.35,
+        zorder=0,
+        label="Typical DRAM pool (1 to 4 GB, see README table)",
+    )
+    ax.axhline(
+        100,
+        color=COLORS["muted"],
+        linestyle="--",
+        linewidth=0.9,
+        alpha=0.7,
+        label="~100 MB buffer reference (TinyLM subsection)",
+    )
+    bars = ax.bar(x, sizes_mb, color=colors, edgecolor="white", linewidth=1.2, width=0.62, zorder=2)
+    ax.set_xticks(x)
     ax.set_xticklabels(models, fontsize=8.5)
-    ax.set_ylabel("Representative effective size (MB)")
-    ax.set_title("Quantized model footprint vs controller-scale DRAM pressure")
-    ax.set_ylim(0, max(sizes_mb) * 1.15)
+    ax.set_ylabel("Size (MB), log scale")
+    ax.set_title("Quantized weight footprint (MB) vs controller DRAM envelope")
     for bar, val in zip(bars, sizes_mb):
         ax.text(
             bar.get_x() + bar.get_width() / 2,
-            bar.get_height() + 12,
+            val * 1.12,
             f"{val}",
             ha="center",
             va="bottom",
             fontsize=9,
             color=COLORS["text"],
+            zorder=3,
         )
+    ax.legend(loc="upper left", fontsize=7.5, framealpha=0.92, borderaxespad=0.5)
     ax.text(
         0.02,
-        -0.28,
-        "Llama size uses the midpoint of the ~200–300 MB range from the briefing; TinyML uses <50 MB cap.",
+        -0.38,
+        "Each bar is one model's compressed weights. The green band is the typical total controller "
+        "DRAM range (1 to 4 GB) from the README table: compare bar height to that pool (firmware and "
+        "I/O also use DRAM). Log scale fits MB-scale weights and GB-scale DRAM on one axis. No single "
+        "best footprint, see latency and reasoning tradeoffs in the README table. Llama uses the "
+        "~200 to 300 MB midpoint.",
         transform=ax.transAxes,
-        fontsize=8,
+        fontsize=7.5,
         color=COLORS["muted"],
         va="top",
     )
-    fig.tight_layout()
+    fig.subplots_adjust(bottom=0.38)
     _save_both(fig, out_dir / "model-footprint-mb")
     plt.close(fig)
 
@@ -149,7 +175,7 @@ def figure_memory_ladder(out_dir: Path) -> None:
     ax.text(
         0.02,
         -0.24,
-        "Illustrative only: shows why weight tiles exceed SRAM and press DRAM — drives quantization.",
+        "Illustrative only: weight tiles exceed SRAM and stress DRAM headroom, which motivates quantization.",
         transform=ax.transAxes,
         fontsize=8,
         color=COLORS["muted"],
