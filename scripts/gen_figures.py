@@ -5,9 +5,12 @@ Generate SVG + PNG figures referenced from README.md.
 Run from repo root:
   python scripts/gen_figures.py
 
-Do not add footnotes, captions, or explanatory paragraphs inside the figure (no ax.text
-below the axes, no long titles). Keep plots to axes, ticks, bars/lines, and minimal labels.
-Longer context stays in README.md as italic text under each image.
+Policy:
+  - Explanatory prose belongs in README.md as italic lines *under* each figure — not inside PNG/SVG.
+  - Never draw footer notes or narrative under the plot area (no ax.text/fig.text in negative y /
+    transAxes bottom band, no “story” captions inside the file).
+  - In-chart text is only: short title, axis labels, tick labels, data labels on bars (numbers),
+    and plot geometry (bars, lines, bands).
 """
 
 from __future__ import annotations
@@ -63,6 +66,7 @@ def figure_bics_layers(out_dir: Path) -> None:
     ax.set_yticks(list(y))
     ax.set_yticklabels(labels)
     ax.set_xlabel("Layers")
+    ax.set_title("BiCS FLASH: public vertical layer counts (8th and 10th gen)", fontsize=12, pad=10)
     ax.set_xlim(0, max(values) * 1.12)
     for bar, val in zip(bars, values):
         ax.text(
@@ -107,6 +111,7 @@ def figure_model_footprint(out_dir: Path) -> None:
     ax.set_xticks(x)
     ax.set_xticklabels(models, fontsize=11)
     ax.set_ylabel("MB (log)")
+    ax.set_title("Compressed weights vs controller DRAM range", fontsize=12, pad=10)
     for bar, val in zip(bars, sizes_mb):
         ax.text(
             bar.get_x() + bar.get_width() / 2,
@@ -137,6 +142,7 @@ def figure_memory_ladder(out_dir: Path) -> None:
     ax.set_xticks(list(x))
     ax.set_xticklabels(labels)
     ax.set_ylabel("Bytes (log)")
+    ax.set_title("On-controller memory: SRAM vs DRAM (illustrative)", fontsize=12, pad=10)
     ax.set_yscale("log")
     ymin = 10**5
     ymax = 5 * 10**10
