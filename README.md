@@ -57,7 +57,11 @@ The roadmap for 2026 to 2027 targets the mass production of 10th-generation BiCS
 | BiCS 9 | Developing | Enhanced bit density, power efficiency | Data-intensive AI, high-speed interfaces |
 | BiCS 10 | 332 layers | Industry-leading layer count | Generative AI training and inference infrastructure |
 
-![BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)](figures/bics-layers.png)
+<div align="center">
+
+<img src="figures/bics-layers.png" alt="BiCS FLASH public vertical layer counts (8th and 10th generations, roadmap table)" width="980" />
+
+</div>
 
 *Numeric roadmap chart (BiCS 9 is developing without a public layer count in the source roadmap figures above, so it is omitted). Vector: [bics-layers.svg](figures/bics-layers.svg).*
 
@@ -163,7 +167,11 @@ flowchart TB
  D --> Q[Quantization and weight tiling required]
 ```
 
-![Memory hierarchy gap on SSD controllers, log scale (illustrative)](figures/memory-hierarchy-log.png)
+<div align="center">
+
+<img src="figures/memory-hierarchy-log.png" alt="Memory hierarchy gap on SSD controllers, log scale (illustrative)" width="980" />
+
+</div>
 
 *Compares two capacities on one chart (on-chip SRAM versus a midpoint in the 1 to 4 GB controller DRAM envelope), log scale. [memory-hierarchy-log.svg](figures/memory-hierarchy-log.svg).*
 
@@ -189,7 +197,11 @@ For an SSD controller, the following model scales and architectures are technica
 | Phi-3.5-mini | 3.8 billion | 1.58-bit (BitNet) | ~600 MB | Requires 1GB+ controller DRAM |
 | TinyML or MobileNet | Less than 100 million | 8-bit or 4-bit | Less than 50 MB | Real-time, limited reasoning |
 
-![Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band](figures/model-footprint-mb.png)
+<div align="center">
+
+<img src="figures/model-footprint-mb.png" alt="Quantized model weight footprint (MB, log scale) with typical 1 to 4 GB controller DRAM band" width="980" />
+
+</div>
 
 *Compressed weight size per model (bars, log MB) against the typical total controller DRAM band from the table (green, 1 to 4 GB). That is the intended comparison: weights versus available DRAM headroom, not a second plotted metric. Quality and latency tradeoffs stay in the table. Llama uses the ~200 to 300 MB midpoint, TinyML the 50 MB cap. [model-footprint-mb.svg](figures/model-footprint-mb.svg).*
 
