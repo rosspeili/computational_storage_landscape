@@ -4,13 +4,12 @@
 
 Strategic analysis with **KIOXIA** as the primary lens, BiCS FLASH and XL-FLASH roadmaps, AiSAQ, Software-Enabled Flash (SEF), and positioning versus computational-storage competitors, plus market and technical context for embedding small language models in SSD controllers.
 
-**Companion implementation:** [**LC-0 VIC**](https://github.com/arpahls/lc0_vic) — a runnable, local-first reference implementation of the tiered retrieval architecture described here (L0 metadata → L1 vector search → L2 skillware parsing), with a real CLI, HTTP bridge, and test suite. Built by [ARPA Hellenic Logical Systems](https://arpacore.net).
 
 <br/>
 
-<img src="https://img.shields.io/badge/Landscape-KIOXIA%20%C3%97%20storage-fdf2f8?style=flat-square" alt="Landscape: KIOXIA x storage" />
-<img src="https://img.shields.io/badge/Focus-SSD%20%C3%97%20AI-e0f2fe?style=flat-square" alt="Focus: SSD x AI" />
-<img src="https://img.shields.io/badge/Scope-KIOXIA%20%26%20market-ddf4e4?style=flat-square" alt="Scope: KIOXIA and market" />
+<a href="https://github.com/kioxia-jp/aisaq-diskann"><img src="https://img.shields.io/badge/Landscape-KIOXIA%20%C3%97%20storage-fdf2f8?style=flat-square" alt="Landscape: KIOXIA x storage" /></a>
+<a href="https://www.google.com/search?q=SSD+x+AI" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Focus-SSD%20%C3%97%20AI-e0f2fe?style=flat-square" alt="Focus: SSD x AI" /></a>
+<a href="https://github.com/arpahls/lc0_vic"><img src="https://img.shields.io/badge/Demo-lc0--vic-ddf4e4?style=flat-square" alt="Demo: lc0-vic" /></a>
 <img src="https://img.shields.io/badge/Format-Strategic%20analysis-fef9c3?style=flat-square" alt="Format: Strategic analysis" />
 
 <br/>
