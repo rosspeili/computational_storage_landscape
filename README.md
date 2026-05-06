@@ -4,6 +4,8 @@
 
 Strategic analysis with **KIOXIA** as the primary lens, BiCS FLASH and XL-FLASH roadmaps, AiSAQ, Software-Enabled Flash (SEF), and positioning versus computational-storage competitors, plus market and technical context for embedding small language models in SSD controllers.
 
+**Companion implementation:** [**LC-0 VIC**](https://github.com/arpahls/lc0_vic) — a runnable, local-first reference implementation of the tiered retrieval architecture described here (L0 metadata → L1 vector search → L2 skillware parsing), with a real CLI, HTTP bridge, and test suite. Built by [ARPA Hellenic Logical Systems](https://arpacore.net).
+
 <br/>
 
 <img src="https://img.shields.io/badge/Landscape-KIOXIA%20%C3%97%20storage-fdf2f8?style=flat-square" alt="Landscape: KIOXIA x storage" />
